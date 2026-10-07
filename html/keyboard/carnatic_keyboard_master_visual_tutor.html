@@ -2228,15 +2228,29 @@
         function initAudio() {
             if (!audioCtx) {
                 const AudioClass = window.AudioContext || window.webkitAudioContext;
+                if (!AudioClass) return null;
                 audioCtx = new AudioClass();
                 masterGainNode = audioCtx.createGain();
                 masterGainNode.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
                 masterGainNode.connect(audioCtx.destination);
             }
             if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
+                audioCtx.resume().catch(() => {});
+            }
+            return audioCtx;
+        }
+
+        // Global unlock on any user gesture to satisfy browser autoplay policy
+        function unlockAudioEngine() {
+            initAudio();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => {});
             }
         }
+        window.addEventListener('pointerdown', unlockAudioEngine, { passive: true });
+        window.addEventListener('touchstart', unlockAudioEngine, { passive: true });
+        window.addEventListener('click', unlockAudioEngine, { passive: true });
+        window.addEventListener('keydown', unlockAudioEngine, { passive: true });
 
         function setMasterVolume(val) {
             masterVolume = parseFloat(val);
@@ -2371,7 +2385,6 @@
 
         // Key Press Sound & Visual
         function onKeyPointerDown(midi, event) {
-            if (event) event.preventDefault();
             initAudio();
             playMidiNote(midi);
             highlightKeyVisual(midi, true);
@@ -2476,9 +2489,12 @@
             biquad.Q.setValueAtTime(1.8, now);
 
             const gain = audioCtx.createGain();
+            const attackTime = Math.min(0.03, dur * 0.2);
+            const releaseTime = Math.max(0.04, dur * 0.2);
+            const sustainEnd = Math.max(now + attackTime, now + dur - releaseTime);
             gain.gain.setValueAtTime(0.001, now);
-            gain.gain.linearRampToValueAtTime(0.55, now + 0.03);
-            gain.gain.setValueAtTime(0.55, now + dur * 0.8);
+            gain.gain.linearRampToValueAtTime(0.55, now + attackTime);
+            gain.gain.setValueAtTime(0.55, sustainEnd);
             gain.gain.exponentialRampToValueAtTime(0.0001, now + dur + 0.08);
 
             reed1.connect(biquad);
@@ -2503,12 +2519,13 @@
             lfo.frequency.setValueAtTime(5.5, now);
             lfoGain.gain.setValueAtTime(freq * 0.015, now);
             lfo.connect(osc.frequency);
-            lfo.start(now + 0.08);
+            lfo.start(now);
             lfo.stop(now + dur + 0.1);
 
             const gain = audioCtx.createGain();
+            const attack = Math.min(0.06, dur * 0.25);
             gain.gain.setValueAtTime(0.001, now);
-            gain.gain.linearRampToValueAtTime(0.6, now + 0.06);
+            gain.gain.linearRampToValueAtTime(0.6, now + attack);
             gain.gain.exponentialRampToValueAtTime(0.0001, now + dur + 0.12);
 
             osc.connect(gain);
@@ -3345,15 +3362,21 @@
             highlightKeyVisual(cur.midi, true);
 
             if (playSound) {
+                initAudio();
                 const stepDurationSec = (60 / currentBPM) / currentKaalam;
                 playMidiNote(cur.midi, stepDurationSec * 0.9);
-                playMridangamForBeat(lesson.tala, currentStepIndex, audioCtx.currentTime);
+                if (audioCtx) {
+                    playMridangamForBeat(lesson.tala, currentStepIndex, audioCtx.currentTime);
+                }
             }
         }
 
         // Playback Engine
         function togglePlayPause() {
             initAudio();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => {});
+            }
             if (isPlaying) {
                 pausePlayback();
             } else {
@@ -3405,18 +3428,21 @@
 
         function stepForward() {
             pausePlayback();
+            initAudio();
             currentStepIndex = (currentStepIndex + 1) % flatSequence.length;
             updateStepDisplay(true);
         }
 
         function stepBackward() {
             pausePlayback();
+            initAudio();
             currentStepIndex = (currentStepIndex - 1 + flatSequence.length) % flatSequence.length;
             updateStepDisplay(true);
         }
 
         function seekToStep(idx) {
             pausePlayback();
+            initAudio();
             currentStepIndex = idx;
             updateStepDisplay(true);
         }
