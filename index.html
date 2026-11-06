@@ -1483,6 +1483,39 @@
             .quiz-choices-grid { grid-template-columns: 1fr; }
         }
     
+        
+        .transport-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-ctrl {
+            white-space: nowrap !important;
+            flex-shrink: 0;
+            user-select: none;
+        }
+        .btn-play-main {
+            background: linear-gradient(135deg, #fbbf24, #d97706) !important;
+            color: #050814 !important;
+            font-weight: 800 !important;
+            font-size: 0.95rem !important;
+            padding: 10px 22px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.45) !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+        }
+        .btn-play-main:hover {
+            background: linear-gradient(135deg, #fef08a, #f59e0b) !important;
+            transform: scale(1.03) !important;
+            box-shadow: 0 0 26px rgba(251, 191, 36, 0.7) !important;
+        }
+        .btn-play-main.playing {
+            background: linear-gradient(135deg, #f43f5e, #be123c) !important;
+            color: #fff !important;
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.5) !important;
+        }
+    
         /* Practice Mode HUD & Target Visuals */
         .practice-hud {
             display: flex;
@@ -1782,15 +1815,15 @@
                         <div class="select-group" style="flex: 1.2;">
                             <label class="select-label">📂 பயிற்சி வகை (Category):</label>
                             <select id="catSelector" class="custom-select" onchange="onCategoryChange()">
-                                <option value="all">அனைத்துப் பாடங்கள் (All 77 Lessons)</option>
+                                <option value="all">முழு தொடக்கப் பாடத் தொகுப்பு (Practical Beginner Set • 77 Tracks)</option>
                                 <option value="sarali">1. சரளி வரிசை (Sarali Varisai 1-14)</option>
                                 <option value="janta">2. ஜண்டை வரிசை (Janta Varisai 1-10)</option>
                                 <option value="dhatu">3. தாது வரிசை (Dhatu Varisai 1-5)</option>
-                                <option value="sthayi">4. ஸ்தாயி வரிசை (Hechchu & Taggu Sthayi)</option>
+                                <option value="sthayi">4. ஸ்தாயி பயிற்சி (Sthayi Practice)</option>
                                 <option value="alankaram">5. சப்த தாள அலங்காரம் (Sapta Tala 1-7)</option>
                                 <option value="geetham">6. கீதங்கள் (Geethams with Sahityam)</option>
-                                <option value="varnam">7. வர்ணங்கள் (10 முழு வர்ணங்கள் + 1 Pallavi study)</option>
-                                <option value="krithi">8. கச்சேரி கிருதிகள் (18 Kutcheri Krithis)</option>
+                                <option value="varnam">7. வர்ணங்கள் (Varnams & Pallavi Study)</option>
+                                <option value="krithi">8. கச்சேரி கிருதிகள் (Kutcheri Krithis)</option>
                                 <option value="gamaka">9. கமகப் பயிற்சி (Gamaka Keyboard Drills)</option>
                             </select>
                         </div>
@@ -1801,6 +1834,11 @@
                                 <!-- Dynamically populated -->
                             </select>
                         </div>
+                    </div>
+
+                    <div style="margin-top: -4px; padding: 8px 12px; border: 1px solid rgba(212, 175, 55, 0.25); background: rgba(212, 175, 55, 0.08); border-radius: 10px; color: var(--text-muted); font-size: 0.75rem; line-height: 1.5; font-family: var(--font-ta);">
+                        <strong style="color: var(--gold-bright);">குறிப்பு:</strong> இது ஒரு நடைமுறை விசைப்பலகை கற்றல் வரிசை. முறையான கர்நாடகப் பயிற்சியை குரு / பாடநூல் மூலம் உறுதிப்படுத்துவது சிறந்தது. <br>
+                        <span style="color: var(--text-main);">Note:</span> This is a practical keyboard-learning sequence. For formal Carnatic study, confirm with a teacher or standard textbook.
                     </div>
 
                     <!-- Row 2: Shruti & Sound Engine & Mridangam -->
@@ -1855,21 +1893,15 @@
                     <div class="playback-strip">
                         
                         <!-- Main Transport Buttons -->
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <button class="btn-ctrl" onclick="stepBackward()" title="முந்தைய ஸ்வரம்">⏮️</button>
-                            <button id="btnPlayPause" class="btn-ctrl btn-primary" onclick="togglePlayPause()">
-                                <span id="playIcon">▶️</span> <span id="playText">இயக்குக (Play)</span>
+                        <div class="transport-group">
+                            <button class="btn-ctrl" onclick="stepBackward()" title="முந்தைய ஸ்வரம்">⏮️ முந்தைய</button>
+                            <button id="btnPlayPause" class="btn-ctrl btn-play-main" onclick="togglePlayPause()" title="பாடத்தை இயக்குக / நிறுத்துக">
+                                <span id="playIcon">▶️</span> <span id="playText">பாடத்தை இயக்குக (Play)</span>
                             </button>
-                            <button class="btn-ctrl" id="btnPracticeMode" onclick="togglePracticeMode()" title="ஊடாடும் நேரடி பயிற்சி முறை: ஒவ்வொரு ஸ்வரத்தையும் நீங்களே வாசித்து பயிலுங்கள்">
-                                <span id="practiceModeIcon">🎯</span> <span id="practiceModeText">பயிற்சி முறை (Practice Mode)</span>
-                            </button>
-                            <button class="btn-ctrl" id="btnKeyHints" onclick="toggleKeyHints()" title="கணினி விசைப்பலகை எழுத்துக் குறிப்புகளைக் காட்டு/மறை">
-                                <span>⌨️</span> <span>விசை குறிப்புகள்</span>
-                            </button>
-                            <button class="btn-ctrl" onclick="stepForward()" title="அடுத்த ஸ்வரம்">⏭️</button>
-                            <button class="btn-ctrl" onclick="stopPlayback()" title="நிறுத்துக">⏹️</button>
-                            <button id="btnLoop" class="btn-ctrl" onclick="toggleLoop()" title="தொடர் லூப்">🔁 லூப்</button>
-                            <button class="btn-ctrl" onclick="openLyricsModal()" title="முழு சாகித்தியப் பாடல் வரிகள் & பொருள்">📜 வரிகள்</button>
+                            <button class="btn-ctrl" onclick="stepForward()" title="அடுத்த ஸ்வரம்">அடுத்தது ⏭️</button>
+                            <button class="btn-ctrl" onclick="stopPlayback()" title="மீண்டும் ஆரம்பத்திலிருந்து">⏹️ ஆரம்பம்</button>
+                            <button id="btnLoop" class="btn-ctrl" onclick="toggleLoop()" title="தொடர் லூப் இயக்கம்">🔁 லூப்</button>
+                            <button class="btn-ctrl" onclick="openLyricsModal()" title="முழு சாகித்தியப் பாடல் வரிகள்">📜 வரிகள்</button>
                         </div>
 
                         <!-- Kaalam Multipliers -->
@@ -2008,23 +2040,7 @@
                         <span class="bend-cents" id="bendCentsDisplay">0¢</span>
                     </div>
 
-                    <!-- Interactive Practice Mode Live HUD -->
-                    <div class="practice-hud" id="practiceHud" style="display: none;">
-                        <div class="practice-hud-left">
-                            <span class="practice-mode-badge">🎯 ஊடாடும் நேரடி பயிற்சி முறை</span>
-                            <span class="practice-target-label">அடுத்த ஸ்வரம்:</span>
-                            <span class="practice-target-swara" id="practiceTargetSwara">ஸ (C4)</span>
-                            <span class="practice-target-hint" id="practiceTargetHint">விசைப்பலகை, கணினி விசை (Q) அல்லது USB MIDI விசை மூலம் வாசியுங்கள்</span>
-                        </div>
-                        <div class="practice-hud-right">
-                            <div class="practice-score-box">
-                                <span>முன்னேற்றம்: <strong id="practiceProgress">0 / 0</strong></span>
-                                <span>துல்லியம்: <strong id="practiceAccuracy" style="color: #34d399;">100%</strong></span>
-                                <span>தவறுகள்: <strong id="practiceMistakes" style="color: #fb7185;">0</strong></span>
-                            </div>
-                            <button class="btn-ctrl" style="padding: 6px 14px; font-size: 0.8rem;" onclick="resetPractice()">🔄 மீண்டும் தொடங்கு</button>
-                        </div>
-                    </div>
+                    
 
                     <!-- 61-Key Piano Bed -->
                     <div class="piano-bed-scroll" id="pianoScrollArea">
@@ -2632,15 +2648,7 @@
                     westLbl.className = 'key-west-lbl';
                     westLbl.textContent = westName;
 
-                    const hintKey = getComputerKeyHint(midi);
-                    const hintLbl = document.createElement('span');
-                    hintLbl.className = 'key-hint-lbl';
-                    hintLbl.style.display = showKeyHints ? 'block' : 'none';
-                    hintLbl.textContent = hintKey;
-
-                    wKey.appendChild(swaraLbl);
-                    wKey.appendChild(westLbl);
-                    wKey.appendChild(hintLbl);
+                    
 
                     wKey.onpointerdown = (e) => onKeyPointerDown(midi, e);
                     wKey.onpointerenter = (e) => { if (e.buttons === 1) onKeyPointerDown(midi, e); };
@@ -2670,15 +2678,7 @@
                     westLbl.className = 'key-west-lbl';
                     westLbl.textContent = westName;
 
-                    const hintKey = getComputerKeyHint(midi);
-                    const hintLbl = document.createElement('span');
-                    hintLbl.className = 'key-hint-lbl';
-                    hintLbl.style.display = showKeyHints ? 'block' : 'none';
-                    hintLbl.textContent = hintKey;
-
-                    bKey.appendChild(swaraLbl);
-                    bKey.appendChild(westLbl);
-                    bKey.appendChild(hintLbl);
+                    
 
                     bKey.onpointerdown = (e) => onKeyPointerDown(midi, e);
                     bKey.onpointerenter = (e) => { if (e.buttons === 1) onKeyPointerDown(midi, e); };
@@ -2701,10 +2701,7 @@
                 checkQuizAnswerWithMidi(midi);
             }
 
-            // If in Interactive Practice Mode, check student key press
-            if (isPracticeMode && currentView === 'studio') {
-                checkPracticeNote(midi);
-            }
+
         }
 
         function onKeyPointerUp(midi) {
@@ -3722,9 +3719,9 @@
 
         function startPlayback() {
             isPlaying = true;
-            document.getElementById('btnPlayPause').classList.add('active');
+            document.getElementById('btnPlayPause').classList.add('playing');
             document.getElementById('playIcon').textContent = '⏸️';
-            document.getElementById('playText').textContent = 'நிறுத்துக (Pause)';
+            document.getElementById('playText').textContent = 'இடைநிறுத்து (Pause)';
 
             scheduleNextStep();
         }
@@ -3732,9 +3729,9 @@
         function pausePlayback() {
             isPlaying = false;
             if (playTimer) clearTimeout(playTimer);
-            document.getElementById('btnPlayPause').classList.remove('active');
+            document.getElementById('btnPlayPause').classList.remove('playing');
             document.getElementById('playIcon').textContent = '▶️';
-            document.getElementById('playText').textContent = 'இயக்குக (Play)';
+            document.getElementById('playText').textContent = 'பாடத்தை இயக்குக (Play)';
             document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
         }
 
@@ -4616,9 +4613,7 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
             if (command === 9 && velocity > 0) {
                 playMidiNote(note);
                 highlightKeyVisual(note, true);
-                if (isPracticeMode && currentView === 'studio') {
-                    checkPracticeNote(note);
-                }
+
             } else if (command === 8 || (command === 9 && velocity === 0)) {
                 highlightKeyVisual(note, false);
             }
@@ -4637,9 +4632,7 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
                 const midi = keyMap[key] + currentKattai + (currentBaseSthayi * 12);
                 playMidiNote(midi);
                 highlightKeyVisual(midi, true);
-                if (isPracticeMode && currentView === 'studio') {
-                    checkPracticeNote(midi);
-                }
+
             } else if (e.code === 'Space') {
                 e.preventDefault();
                 togglePlayPause();
@@ -4665,192 +4658,6 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
         });
 
         
-        // ================= INTERACTIVE PRACTICE MODE & KEYBOARD HINTS =================
-        let isPracticeMode = false;
-        let showKeyHints = false;
-        let practiceStats = { correct: 0, total: 0, mistakes: 0 };
-
-        function getComputerKeyHint(midi) {
-            const rootMidi = 60 + currentKattai + (currentBaseSthayi * 12);
-            const delta = midi - rootMidi;
-            const deltaMap = {
-                '-12': 'Z', '-11': 'S', '-10': 'X', '-9': 'D', '-8': 'C', '-7': 'V', '-6': 'G', '-5': 'B', '-4': 'H', '-3': 'N', '-2': 'J', '-1': 'M',
-                '0': 'Q', '1': '2', '2': 'W', '3': '3', '4': 'E', '5': 'R', '6': '5', '7': 'T', '8': '6', '9': 'Y', '10': '7', '11': 'U', '12': 'I'
-            };
-            return deltaMap[String(delta)] || '';
-        }
-
-        function toggleKeyHints() {
-            showKeyHints = !showKeyHints;
-            document.querySelectorAll('.key-hint-lbl').forEach(lbl => {
-                lbl.style.display = showKeyHints ? 'block' : 'none';
-            });
-            const btn = document.getElementById('btnKeyHints');
-            if (btn) {
-                if (showKeyHints) btn.classList.add('active');
-                else btn.classList.remove('active');
-            }
-        }
-
-        function togglePracticeMode() {
-            if (isPracticeMode) {
-                stopPracticeMode();
-            } else {
-                startPracticeMode();
-            }
-        }
-
-        function startPracticeMode() {
-            stopPlayback();
-            isPracticeMode = true;
-            practiceStats = { correct: 0, total: flatSequence.length, mistakes: 0 };
-
-            const btn = document.getElementById('btnPracticeMode');
-            if (btn) btn.classList.add('active');
-            document.getElementById('practiceModeText').textContent = 'பயிற்சியை நிறுத்து (Exit)';
-
-            const hud = document.getElementById('practiceHud');
-            if (hud) hud.style.display = 'flex';
-
-            currentStepIndex = 0;
-            document.querySelectorAll('.swara-node').forEach(n => n.classList.remove('step-correct'));
-            updateStepDisplay(false);
-            updatePracticeTargetHighlight();
-        }
-
-        function stopPracticeMode() {
-            isPracticeMode = false;
-            const btn = document.getElementById('btnPracticeMode');
-            if (btn) btn.classList.remove('active');
-            document.getElementById('practiceModeText').textContent = 'பயிற்சி முறை (Practice Mode)';
-
-            const hud = document.getElementById('practiceHud');
-            if (hud) hud.style.display = 'none';
-
-            document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('practice-target'));
-            document.querySelectorAll('.swara-node').forEach(n => n.classList.remove('step-correct'));
-        }
-
-        function resetPractice() {
-            currentStepIndex = 0;
-            practiceStats = { correct: 0, total: flatSequence.length, mistakes: 0 };
-            document.querySelectorAll('.swara-node').forEach(n => n.classList.remove('step-correct'));
-            updateStepDisplay(false);
-            updatePracticeTargetHighlight();
-        }
-
-        function updatePracticeTargetHighlight() {
-            if (!isPracticeMode || flatSequence.length === 0) return;
-            const cur = flatSequence[currentStepIndex];
-            if (!cur) return;
-
-            document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('practice-target'));
-            const targetKey = document.getElementById(`key_midi_${cur.midi}`);
-            if (targetKey) {
-                targetKey.classList.add('practice-target');
-                if (isZoomMode) targetKey.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            }
-
-            document.getElementById('practiceTargetSwara').textContent = `${cur.swaraTa} (${cur.westNote})`;
-            const hintKey = getComputerKeyHint(cur.midi);
-            document.getElementById('practiceTargetHint').textContent = hintKey 
-                ? `அழுத்த வேண்டிய விசை: ${cur.westNote} [கணினி விசை: '${hintKey}']` 
-                : `அழுத்த வேண்டிய விசை: ${cur.westNote} (${cur.swaraTa})`;
-
-            document.getElementById('practiceProgress').textContent = `${currentStepIndex} / ${flatSequence.length}`;
-            const totalAttempts = practiceStats.correct + practiceStats.mistakes;
-            const accuracy = totalAttempts > 0 ? Math.round((practiceStats.correct / totalAttempts) * 100) : 100;
-            document.getElementById('practiceAccuracy').textContent = `${accuracy}%`;
-            document.getElementById('practiceMistakes').textContent = practiceStats.mistakes;
-        }
-
-        function checkPracticeNote(playedMidi) {
-            if (!isPracticeMode || flatSequence.length === 0) return;
-            const target = flatSequence[currentStepIndex];
-            if (!target) return;
-
-            // Allow match on exact note OR octave-equivalent semitone
-            const targetRelSemi = (target.midi % 12);
-            const playedRelSemi = (playedMidi % 12);
-
-            if (playedMidi === target.midi || targetRelSemi === playedRelSemi) {
-                // Correct Key Hit!
-                practiceStats.correct++;
-                playPracticeFeedback(true);
-
-                const activeNode = document.getElementById(`ribbon_node_${currentStepIndex}`);
-                if (activeNode) activeNode.classList.add('step-correct');
-
-                currentStepIndex++;
-                if (currentStepIndex >= flatSequence.length) {
-                    // Completed Lesson!
-                    playCelebrationFanfare();
-                    setTimeout(() => {
-                        const totalAttempts = practiceStats.correct + practiceStats.mistakes;
-                        const accuracy = totalAttempts > 0 ? Math.round((practiceStats.correct / totalAttempts) * 100) : 100;
-                        alert(`🎉 வாழ்த்துகள்! அற்புதம்!\n\n"${allLessons[currentLessonKey].title}" பாடத்தை முழுமையாக வாசித்து முடித்துவிட்டீர்கள்!\n\n🏆 துல்லியம்: ${accuracy}%\n🎯 மொத்த ஸ்வரங்கள்: ${flatSequence.length}\n⚠️ தவறுகள்: ${practiceStats.mistakes}`);
-                        resetPractice();
-                    }, 400);
-                    return;
-                }
-
-                updateStepDisplay(false);
-                updatePracticeTargetHighlight();
-            } else {
-                // Wrong Key Hit
-                practiceStats.mistakes++;
-                playPracticeFeedback(false);
-                updatePracticeTargetHighlight();
-            }
-        }
-
-        function playPracticeFeedback(isCorrect) {
-            if (!audioCtx) return;
-            const now = audioCtx.currentTime;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            if (isCorrect) {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, now);
-                osc.frequency.exponentialRampToValueAtTime(1760, now + 0.12);
-                gain.gain.setValueAtTime(0.18, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
-                osc.connect(gain);
-                gain.connect(masterGainNode);
-                osc.start(now);
-                osc.stop(now + 0.15);
-            } else {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(160, now);
-                osc.frequency.linearRampToValueAtTime(120, now + 0.14);
-                gain.gain.setValueAtTime(0.22, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
-                osc.connect(gain);
-                gain.connect(masterGainNode);
-                osc.start(now);
-                osc.stop(now + 0.18);
-            }
-        }
-
-        function playCelebrationFanfare() {
-            if (!audioCtx) return;
-            const notes = [523.25, 659.25, 783.99, 1046.50]; // C - E - G - C
-            notes.forEach((freq, idx) => {
-                const now = audioCtx.currentTime + (idx * 0.11);
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(freq, now);
-                gain.gain.setValueAtTime(0.35, now);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.38);
-                osc.connect(gain);
-                gain.connect(masterGainNode);
-                osc.start(now);
-                osc.stop(now + 0.42);
-            });
-        }
-
         // ================= DIAGRAMS GALLERY INITIALIZER =================
         function renderDiagramsGallery() {
             const isSubDir = window.location.pathname.includes('/html/keyboard/');
