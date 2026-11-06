@@ -682,6 +682,13 @@
             border: 2px solid rgba(10, 14, 28, 0.9);
             border-radius: 999px;
         }
+        .swara-ribbon-scroll.split-lines {
+            flex-direction: column;
+            align-items: stretch;
+            overflow-x: hidden;
+            overflow-y: auto;
+            touch-action: pan-y;
+        }
         .swara-line-group {
             display: flex;
             flex: 0 0 auto;
@@ -691,6 +698,28 @@
             border: 1px solid rgba(212, 175, 55, 0.22);
             border-radius: 12px;
             background: rgba(8, 13, 28, 0.55);
+        }
+        .swara-ribbon-scroll.split-lines .swara-line-group {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        .swara-line-scroll {
+            width: max-content;
+        }
+        .swara-ribbon-scroll.split-lines .swara-line-scroll {
+            width: 100%;
+            min-width: 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            touch-action: pan-x;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold-bright) rgba(10, 14, 28, 0.9);
+            -webkit-overflow-scrolling: touch;
+        }
+        .swara-ribbon-scroll.split-lines .swara-line-measures {
+            width: max-content;
         }
         .swara-line-label {
             align-self: flex-start;
@@ -788,6 +817,72 @@
             font-weight: 700;
             border: 1px solid rgba(251, 191, 36, 0.3);
             margin-top: 2px;
+        }
+        .modal-overlay.notation-lightbox-overlay {
+            padding: 0;
+        }
+        .modal-window.notation-lightbox-window {
+            width: 100%;
+            max-width: none;
+            height: 100vh;
+            height: 100dvh;
+            max-height: none;
+            border-radius: 0;
+            padding: clamp(16px, 3vw, 32px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .notation-lightbox-content {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+        .modal-window.notation-lightbox-window .notation-ribbon-card {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            min-height: 0;
+            margin: 0;
+            padding: clamp(12px, 2vw, 24px);
+        }
+        .modal-window.notation-lightbox-window .ribbon-title > span:first-child,
+        .modal-window.notation-lightbox-window #btnOpenNotationLightbox {
+            display: none;
+        }
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll {
+            flex: 1;
+            max-height: none;
+            min-height: 0;
+            align-items: flex-start;
+        }
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.split-lines {
+            align-items: stretch;
+        }
+        .modal-window.notation-lightbox-window .swara-node {
+            min-width: 82px;
+            flex-basis: 82px;
+            padding: 14px 8px;
+            gap: 5px;
+        }
+        .modal-window.notation-lightbox-window .swara-badge-ta {
+            font-size: 1.65rem;
+        }
+        .modal-window.notation-lightbox-window .swara-west-note,
+        .modal-window.notation-lightbox-window .swara-finger-num {
+            font-size: 0.85rem;
+        }
+        @media (max-width: 600px) {
+            .modal-window.notation-lightbox-window {
+                padding: 12px 8px;
+            }
+            .modal-window.notation-lightbox-window .notation-ribbon-card {
+                padding: 12px 8px;
+            }
+            .modal-window.notation-lightbox-window .swara-node {
+                min-width: 70px;
+                flex-basis: 70px;
+            }
         }
 
         /* Active Swara Summary Bar */
@@ -1066,6 +1161,53 @@
             font-family: var(--font-mono);
             font-weight: 600;
             color: #64748b;
+        }
+        .key-repeat-fingering {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            place-items: center;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            color: #111827;
+            font: 900 0.9rem var(--font-mono);
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 0 10px currentColor;
+            pointer-events: none;
+        }
+        .key-repeat-fingering.number-one {
+            background: #fbbf24;
+            color: #713f12;
+        }
+        .key-repeat-fingering.number-two {
+            background: #67e8f9;
+            color: #164e63;
+        }
+        .key-black .key-repeat-fingering {
+            top: 24px;
+            width: 18px;
+            height: 18px;
+            font-size: 0.72rem;
+            border-width: 1px;
+        }
+        .janta-key-hint {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            padding: 4px 9px;
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            border-radius: 999px;
+            background: rgba(251, 191, 36, 0.1);
+            color: #fde68a;
+            font: 700 0.72rem var(--font-ta);
+        }
+        .janta-key-hint.visible {
+            display: inline-flex;
         }
         .key-black .key-west-lbl {
             color: #94a3b8;
@@ -1815,10 +1957,10 @@
                         <div class="select-group" style="flex: 1.2;">
                             <label class="select-label">📂 பயிற்சி வகை (Category):</label>
                             <select id="catSelector" class="custom-select" onchange="onCategoryChange()">
-                                <option value="all">அனைத்துப் பாடங்கள் (All 77 Lessons)</option>
-                                <option value="sarali">1. சரளி வரிசை (Sarali Varisai 1-14)</option>
-                                <option value="janta">2. ஜண்டை வரிசை (Janta Varisai 1-10)</option>
-                                <option value="dhatu">3. தாது வரிசை (Dhatu Varisai 1-5)</option>
+                                <option value="all">அனைத்துப் பாடங்கள் (All 97 Lessons)</option>
+                                <option value="sarali" selected>1. சரளி வரிசை (Sarali Varisai 1-14)</option>
+                                <option value="janta">2. ஜண்டை வரிசை (Jantai Varisai 1-20)</option>
+                                <option value="dhatu">3. தாட்டு / தாது வரிசை (Thatta / Dhatu Varisai 1-15)</option>
                                 <option value="sthayi">4. ஸ்தாயி வரிசை (Hechchu & Taggu Sthayi)</option>
                                 <option value="alankaram">5. சப்த தாள அலங்காரம் (Sapta Tala 1-7)</option>
                                 <option value="geetham">6. கீதங்கள் (Geethams with Sahityam)</option>
@@ -1972,13 +2114,22 @@
             </div>
 
             <!-- Notation & Sahityam Ribbon -->
+            <div id="notationRibbonHome">
             <div class="notation-ribbon-card">
                 <div class="ribbon-header">
                     <div class="ribbon-title">
                         <span>📜 ஸ்வர வரிசை & விரல் எண்கள் (Notation & Fingering)</span>
                         <span id="ribbonLineTitle" style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">-</span>
                     </div>
-                    <div class="ribbon-badge" id="lessonStepCounter">ஸ்வரம் 1 / 16</div>
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <div class="ribbon-badge" id="lessonStepCounter">ஸ்வரம் 1 / 16</div>
+                        <label for="ribbonAlignment" style="color: var(--text-muted); font-size: 0.74rem;">அமைப்பு</label>
+                        <select class="btn-ctrl" id="ribbonAlignment" aria-label="Notation வரிசை அமைப்பு" onchange="setRibbonAlignment(this.value)" style="padding: 5px 8px; font-size: 0.74rem;">
+                            <option value="split">ஏற்றம் / இறக்கம் தனித்தனி வரிசை</option>
+                            <option value="continuous">ஒரே கிடைமட்ட வரிசை</option>
+                        </select>
+                        <button class="btn-ctrl" id="btnOpenNotationLightbox" type="button" onclick="openNotationLightbox()" aria-label="Notation-ஐ பெரிதாகத் திற" title="Notation-ஐ பெரிதாகப் பார்க்க">⛶ பெரிதாக்கு</button>
+                    </div>
                 </div>
                 <div class="ribbon-scroll-hint">▶ Playback-இல் active ஸ்வரம் தானாக மையத்தில் வரும் • Swipe / Shift+scroll / keyboard arrow-களால் கைமுறையாக நகர்த்தலாம்</div>
 
@@ -1987,6 +2138,7 @@
                     <!-- Populated dynamically -->
                 </div>
             </div>
+            </div>
 
             <!-- 61-Key Interactive Virtual Keyboard Dock -->
             <div class="keyboard-dock-card">
@@ -1994,6 +2146,7 @@
                     <div class="kbd-title">
                         <span>🎹 61-கட்டை விசைப்பலகை (61-Key Virtual Synthesizer)</span>
                         <span style="font-size: 0.72rem; color: var(--gold-bright); font-weight: normal;">[சுருதிக்கேற்ப ஸ்வரங்கள் தானாக மாறும் • 1-7 கட்டை ஆதரவு]</span>
+                        <span class="janta-key-hint" id="jantaKeyHint">ஜண்டை: ஒரே விசை <strong>1</strong> → <strong>2</strong></span>
                     </div>
                     
                     <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
@@ -2458,6 +2611,14 @@
         </div>
     </div>
 
+    <div class="modal-overlay notation-lightbox-overlay" id="notationLightbox" onclick="closeNotationLightbox(event)" aria-hidden="true">
+        <div class="modal-window notation-lightbox-window" role="dialog" aria-modal="true" aria-labelledby="notationLightboxTitle" onclick="event.stopPropagation()">
+            <button class="modal-close-btn notation-lightbox-close" type="button" onclick="closeNotationLightbox()" aria-label="மூடு">✕</button>
+            <h2 id="notationLightboxTitle" style="color: var(--gold-bright); font-family: var(--font-ta); margin: 0 42px 14px 0;">📜 ஸ்வர வரிசை & விரல் எண்கள்</h2>
+            <div id="notationLightboxContent" class="notation-lightbox-content"></div>
+        </div>
+    </div>
+
     <!-- JavaScript Data and Audio Engine -->
     <script>
         // Injected Datasets
@@ -2467,9 +2628,77 @@
         const gamakas10 = [{"id": "kampitam", "name": "1. கம்பிகம் (Kampitam)", "desc": "மெல்லிய அலைவு (Vibrato). விசைப்பலகையில் பிட்ச் பெண்ட் சக்கரத்தை (Pitch Bend) லேசாக முன்னும் பின்னும் அசைக்கும் முறை.", "demo": ["S", "R1", "G3", "M1", "P"]}, {"id": "sphuritam", "name": "2. ஸ்புரிதம் (Sphuritam)", "desc": "இரட்டை ஸ்வரத்தில் இரண்டாவது ஸ்வரத்தை அழுத்தி நசுக்கி மீட்டல் (எ.கா: SS, RR - ஜண்டை வரிசை நுட்பம்).", "demo": ["S", "S", "R1", "R1", "G3", "G3", "M1", "M1"]}, {"id": "pratyahatam", "name": "3. பிரத்யாஹதம் (Pratyahatam)", "desc": "இறங்குவரிசையில் முந்தைய மேல் ஸ்வரத்தைத் தொட்டு இறங்கும் நசுக்கல் நுட்பம் (S' S' N N D D).", "demo": ["S5", "N3", "N3", "D1", "D1", "P"]}, {"id": "nokku", "name": "4. நோக்கு (Nokku)", "desc": "மேல் ஸ்வரத்திலிருந்து தேவையான ஸ்வரத்திற்கு சட்டென கீழிறங்கி அழுத்தும் கட் நுட்பம் (Downward accent tap).", "demo": ["M1", "G3", "R1", "S"]}, {"id": "jaaru", "name": "5. ஜாரு (Jaaru - Glissando)", "desc": "ஒரு கட்டையிலிருந்து மற்றொரு கட்டைக்கு விரலை வழுக்கிச் செல்லும் ஸ்லைடு நுட்பம் (Ullasa & Dhaala Jaaru).", "demo": ["P", "D1", "N3", "S5"]}, {"id": "odukkal", "name": "6. ஒடுக்கல் (Odukkal)", "desc": "இரு ஸ்வரங்களுக்கு இடைப்பட்ட மைக்ரோடோனல் சுருதியில் விரலை நிறுத்தி மீட்டுதல்.", "demo": ["R1", "G3", "R1", "S"]}, {"id": "karvai", "name": "7. கார்வை (Karvai - Sustain Hold)", "desc": "ஸ்வரத்தை அடுத்த ஆவர்த்தனம் வரை தூய்மையாக நீடித்து ஒலிக்கும் கம்பீர தவம்.", "demo": ["P", "P", "P", "S5"]}, {"id": "khandippu", "name": "8. கண்டிப்பு (Khandippu - Staccato Accent)", "desc": "மின்னல் போல தொட்டு எடுக்கும் துள்ளலான ஸ்டக்கட்டோ மீட்டல்.", "demo": ["S", "R1", "G3", "M1"]}, {"id": "andolitam", "name": "9. அந்தோளிதம் (Andolitam - Swing)", "desc": "ஊஞ்சல் போல மேலும் கீழுமாக ஆடும் ஸ்வர அலைவு (எ.கா: P M P M P).", "demo": ["P", "M1", "P", "M1", "P"]}, {"id": "tribhinna", "name": "10. திரிபின்னம் (Tribhinna)", "desc": "மூன்று ஸ்தாயிகளில் ஒரே நேரத்தில் ஒலிக்கும் பல குரல் ஹார்மனி (S + P + S').", "demo": ["S", "P", "S5"]}];
         const janyaRagas30 = [{"name": "மோகனம் (Mohanam)", "janaka": "28. ஹரிகாம்போஜி", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S R2 G3 P D2 S'", "avar": "S' D2 P G3 R2 S", "desc": "மங்களகரமான அமைதியான ராகம். 'நின்னுகோரி' வர்ணம், 'வர வீணா' கீதம்."}, {"name": "ஹம்சத்வனி (Hamsadhwani)", "janaka": "29. சங்கராபரணம்", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S R2 G3 P N3 S'", "avar": "S' N3 P G3 R2 S", "desc": "மங்களகரமான ஆரம்ப ராகம். 'வாதாபி கணபதிம்', 'ஜலஜாக்ஷா' வர்ணம்."}, {"name": "ஹிந்தோளம் (Hindolam)", "janaka": "20. நடபைரவி", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S G2 M1 D1 N2 S'", "avar": "S' N2 D1 M1 G2 S", "desc": "பக்தி & இனிமையான இரவு ராகம். 'சாமஜ வர கமன'."}, {"name": "மத்தியமாவதி (Madhyamavathi)", "janaka": "22. கரகரப்பிரியா", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S R2 M1 P N2 S'", "avar": "S' N2 P M1 R2 S", "desc": "மங்கள ராகம் (கச்சேரி முடிவு). 'பாக்யாத லக்ஷ்மி பாரம்மா'."}, {"name": "சுத்த சாவேரி (Suddha Saveri)", "janaka": "29. சங்கராபரணம்", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S R2 M1 P D2 S'", "avar": "S' D2 P M1 R2 S", "desc": "வீரமும் பக்தியும் கலந்த ராகம். 'தாரிணி தெலுசுகொண்டி'."}, {"name": "பிலஹரி (Bilahari)", "janaka": "29. சங்கராபரணம்", "type": "ஔடவ - சம்பூர்ணம் (Audava-Sampurna)", "aroh": "S R2 G3 P D2 S'", "avar": "S' N3 D2 P M1 G3 R2 S", "desc": "காலை நேர உற்சாக ராகம். 'துரசுகா க்ருப ஜூசி'."}, {"name": "பௌளி (Bowli)", "janaka": "15. மாயாமாளவகௌளை", "type": "ஔடவ - ஷாடவ (Audava-Shadava)", "aroh": "S R1 G3 P D1 S'", "avar": "S' N3 D1 P G3 R1 S", "desc": "விடியற்காலை சுப்ரபாத ராகம். 'பிரம்மம் ஒக்கடே'."}, {"name": "ரேவதி (Revati)", "janaka": "14. வகுளாபரணம்", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S R1 M1 P N2 S'", "avar": "S' N2 P M1 R1 S", "desc": "சிவதாண்டவ பக்தி ராகம். 'போ சம்போ சிவ சம்போ'."}, {"name": "கானடா (Kanada)", "janaka": "22. கரகரப்பிரியா", "type": "வக்ர ராகம் (Vakra Raga)", "aroh": "S R2 G2 M1 D2 N2 S'", "avar": "S' N2 P M1 G2 M1 R2 S", "desc": "காதலும் தவிப்பும் பொங்கும் ராகம். 'அலைபாயுதே கண்ணா'."}, {"name": "காபி (Kapi)", "janaka": "22. கரகரப்பிரியா", "type": "பாஷாங்கம் (Bhashanga Raga)", "aroh": "S R2 M1 P N2 S'", "avar": "S' N2 D2 N2 P M1 G2 R2 S", "desc": "மனதை உருக்கும் ராகம். 'என்ன தவம் செய்தனை'."}, {"name": "மலஹரி (Malahari)", "janaka": "15. மாயாமாளவகௌளை", "type": "ஔடவ - ஷாடவ (Audava-Shadava)", "aroh": "S R1 M1 P D1 S'", "avar": "S' D1 P M1 G3 R1 S", "desc": "ஆரம்பப் பயிற்சிக் கீத ராகம். 'ஸ்ரீ கணநாத', 'குந்த கௌர'."}, {"name": "நளினகாந்தி (Nalinakanthi)", "janaka": "29. சங்கராபரணம்", "type": "வக்ர ராகம் (Vakra Raga)", "aroh": "S G3 R2 M1 P N3 S'", "avar": "S' N3 P M1 G3 R2 S", "desc": "துள்ளலான வேகம். 'மனவ்யால கிஞ்சரா'."}, {"name": "ஜெயந்தஸ்ரீ (Jayanthasri)", "janaka": "20. நடபைரவி", "type": "ஔடவ - ஷாடவ (Audava-Shadava)", "aroh": "S G2 M1 P D1 N2 S'", "avar": "S' N2 D1 M1 P M1 G2 S", "desc": "தியாகராஜரின் உருக்கமான ராகம். 'மருகேலரா ஓ ராகவா'."}, {"name": "ஹம்சநாதம் (Hamsanadam)", "janaka": "65. மேசகல்யாணி", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S R2 M2 P N3 S'", "avar": "S' N3 P M2 R2 S", "desc": "கம்பீரமான சரணாகதி ராகம். 'பண்டுரீதி கொலு'."}, {"name": "நாటకుறிஞ்சி (Natakurinji)", "janaka": "28. ஹரிகாம்போஜி", "type": "வக்ர ராகம் (Vakra Raga)", "aroh": "S R2 G3 M1 N2 D2 N2 P D2 N2 S'", "avar": "S' N2 D2 M1 G3 S", "desc": "கம்பீர வர்ண ராகம். 'சலமேல' வர்ணம்."}, {"name": "ஆபோகி (Abhogi)", "janaka": "22. கரகரப்பிரியா", "type": "ஔடவ - ஔடவ (Audava-Audava)", "aroh": "S R2 G2 M1 D2 S'", "avar": "S' D2 M1 G2 R2 S", "desc": "இனிமையான பாஞ்சால ராகம். 'எவரிபோதிசி' வர்ணம், 'சபாபதிக்கு'."}, {"name": "பேகட (Begada)", "janaka": "29. சங்கராபரணம்", "type": "வக்ர பாஷாங்கம் (Vakra Bhashanga)", "aroh": "S G3 R2 G3 M1 P D2 P S'", "avar": "S' N3 D2 P M1 G3 R2 S", "desc": "அரசவை கம்பீர ராகம். 'இந்த சல' வர்ணம்."}, {"name": "சஹானா (Sahana)", "janaka": "28. ஹரிகாம்போஜி", "type": "வக்ர ராகம் (Vakra Raga)", "aroh": "S R2 G3 M1 P M1 D2 N2 S'", "avar": "S' N2 S' D2 P M1 G3 M1 R2 G3 R2 S", "desc": "கருணை பொங்கும் ராகம். 'கருணிம்ப' வர்ணம்."}, {"name": "யமுனாகல்யாணி (Yamunakalyani)", "janaka": "65. மேசகல்யாணி", "type": "வக்ர பாஷாங்கம் (Vakra Bhashanga)", "aroh": "S R2 G3 P M2 P D2 S'", "avar": "S' D2 P M2 P G3 R2 S", "desc": "கிருஷ்ண பக்தி ராகம். 'கிருஷ்ணா நீ பேகனே பாரோ'."}, {"name": "கமாஸ் (Khamas)", "janaka": "28. ஹரிகாம்போஜி", "type": "ஷாடவ - சம்பூர்ணம் (Shadava-Sampurna)", "aroh": "S M1 G3 M1 P D2 N2 S'", "avar": "S' N2 D2 P M1 G3 R2 S", "desc": "ஜாவளி மற்றும் பக்தி ராகம். 'ப்ரோசேவாரெவருரா'."}, {"name": "சிந்துபைரவி (Sindhubhairavi)", "janaka": "8. ஹனுமத்தோடி", "type": "பாஷாங்கம் (Bhashanga Raga)", "aroh": "S R2 G2 M1 P D1 N2 S'", "avar": "S' N2 D1 P M1 G2 R1 S N2(.) S", "desc": "கச்சேரி இறுதி துக்கடா ராகம். 'பூமி மெச்சும் மெச்சும்'."}, {"name": "கதனகுதூஹலம் (Kathanakuthuhalam)", "janaka": "29. சங்கராபரணம்", "type": "வக்ர ராகம் (Vakra Raga)", "aroh": "S R2 M1 D2 N3 G3 P S'", "avar": "S' N3 D2 P M1 G3 R2 S", "desc": "பாட்டன் மனோகரன் இயற்றிய அதிவேக ராகம். 'ரகுவம்ச சுதா'."}, {"name": "ஸ்ரீ ராகம் (Sri Ragam)", "janaka": "22. கரகரப்பிரியா", "type": "ஔடவ - சம்பூர்ணம் (Audava-Sampurna)", "aroh": "S R2 M1 P N2 S'", "avar": "S' N2 P D2 N2 P M1 R2 G2 R2 S", "desc": "மங்களகரமான பஞ்சரத்ன ராகம். 'எந்தரோ மஹானுபாவுலு'."}, {"name": "நாட்டை (Nattai)", "janaka": "36. சலநாட்டை", "type": "ஔடவ - ஷாடவ (Audava-Shadava)", "aroh": "S R3 G3 M1 P D3 N3 S'", "avar": "S' N3 P M1 R3 S", "desc": "மங்கள ஆரம்ப பஞ்சரத்ன ராகம். 'ஜகதானந்த காரக', 'மகா கணபதிம்'."}, {"name": "ஆபேரி (Abheri)", "janaka": "22. கரகரப்பிரியா", "type": "ஔடவ - சம்பூர்ணம் (Audava-Sampurna)", "aroh": "S G2 M1 P N2 S'", "avar": "S' N2 D2 P M1 G2 R2 S", "desc": "உருக்கமான ராகம். 'நகுமோமு கனலேனி'."}, {"name": "சுபபந்துவராளி (Shubhapantuvarali)", "janaka": "45. சுபபந்துவராளி", "type": "சம்பூர்ண ராகம் (Sampurna)", "aroh": "S R1 G2 M2 P D1 N3 S'", "avar": "S' N3 D1 P M2 G2 R1 S", "desc": "பிரார்த்தனை & தவம் புரியும் ராகம். 'ஸ்ரீ சத்யநாராயணம்'."}, {"name": "ஆனந்தபைரவி (Anandabhairavi)", "janaka": "20. நடபைரவி", "type": "வக்ர பாஷாங்கம் (Vakra Bhashanga)", "aroh": "S G2 R2 G2 M1 P D2 P S'", "avar": "S' N2 D2 P M1 G2 R2 S", "desc": "மகிழ்ச்சி தரும் ராகம். 'மாரிவேரே கதி'."}, {"name": "ரீதிகௌளை (Reethigowla)", "janaka": "22. கரகரப்பிரியா", "type": "வக்ர ராகம் (Vakra Raga)", "aroh": "S G2 R2 G2 M1 N2 D2 M1 N2 N2 S'", "avar": "S' N2 D2 M1 G2 M1 P M1 G2 R2 S", "desc": "தேனினும் இனிய ராகம். 'ஜனனி நினுவினா'."}, {"name": "வசந்தா (Vasantha)", "janaka": "17. சூர்யகாந்தம்", "type": "ஔடவ - ஷாடவ (Audava-Shadava)", "aroh": "S M1 G3 M1 D2 N3 S'", "avar": "S' N3 D2 M1 G3 R1 S", "desc": "வசந்த கால மாலை நேர ராகம். 'சீதாம்ம மாயம்ம'."}, {"name": "சாருகேசி (Charukesi)", "janaka": "26. சாருகேசி", "type": "சம்பூர்ண ராகம் (Sampurna)", "aroh": "S R2 G3 M1 P D1 N2 S'", "avar": "S' N2 D1 P M1 G3 R2 S", "desc": "மேற்கத்திய மற்றும் கர்நாடக பால ராகம். 'ஆடமோடி கலதா'."}];
 
+        const beginnerPracticeScale = ['S', 'R1', 'G3', 'M1', 'P', 'D1', 'N3', 'S5'];
+        const practiceMeasures = (notes) => {
+            const measures = [];
+            for (let i = 0; i < notes.length; i += 4) measures.push(notes.slice(i, i + 4));
+            return measures;
+        };
+        const makeBeginnerPracticeLesson = (id, cat, title, description, ascending, descending) => ({
+            id,
+            cat,
+            catTamil: cat === 'janta' ? 'ஜண்டை வரிசை (Jantai Varisai)' : 'தாட்டு / தாது வரிசை (Thatta / Dhatu Varisai)',
+            raga: 'மாயாமாளவகௌளை (Mayamalavagowla)',
+            tala: 'ஆதி தாளம் (Adi Tala)',
+            title,
+            desc: `${description} • மாயாமாளவகௌளை ராகம்`,
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (Arohanam)', measures: practiceMeasures(ascending) },
+                { title: 'பாகம் 2: இறங்குவரிசை (Avarohanam)', measures: practiceMeasures(descending) }
+            ]
+        });
+        const pairedNotes = (notes) => notes.flatMap(note => [note, note]);
+        const jantaiPracticePatterns = [
+            ['S', 'R1', 'G3', 'M1', 'G3', 'M1', 'P', 'D1'],
+            ['R1', 'G3', 'M1', 'P', 'M1', 'P', 'D1', 'N3'],
+            ['G3', 'M1', 'P', 'D1', 'P', 'D1', 'N3', 'S5'],
+            ['M1', 'P', 'D1', 'N3', 'D1', 'N3', 'S5'],
+            ['S', 'G3', 'R1', 'M1', 'G3', 'P', 'M1', 'D1', 'P', 'N3'],
+            ['R1', 'M1', 'G3', 'P', 'M1', 'D1', 'P', 'N3', 'D1', 'S5'],
+            ['S', 'R1', 'G3', 'R1', 'G3', 'M1', 'P', 'M1', 'D1', 'N3', 'S5'],
+            ['S5', 'N3', 'D1', 'N3', 'D1', 'P', 'M1', 'P', 'M1', 'G3', 'R1', 'S'],
+            ['S', 'R1', 'S', 'G3', 'R1', 'M1', 'G3', 'P', 'M1', 'D1', 'P', 'N3', 'D1', 'S5'],
+            beginnerPracticeScale
+        ];
+        jantaiPracticePatterns.forEach((pattern, index) => {
+            const ascending = pairedNotes(pattern);
+            const descending = pairedNotes([...pattern].reverse());
+            allLessons[`j${index + 11}`] = makeBeginnerPracticeLesson(
+                `j${index + 11}`,
+                'janta',
+                `${index + 11}. ஜண்டை வரிசை ${index + 11} (ஜண்டை ஸ்வரப் பயிற்சி ${index + 1})`,
+                'இரட்டை ஸ்வரங்களைத் தெளிவாகப் பாடும் படிப்படியான கூடுதல் பயிற்சி; இவை பொதுப் பயிற்சி variations, ஒரே மரபின் நிரந்தர பாட வரிசை அல்ல',
+                ascending,
+                descending
+            );
+        });
+        const thattuPracticePatterns = [
+            ['S', 'G3', 'R1', 'M1', 'G3', 'P', 'M1', 'D1', 'P', 'N3', 'D1', 'S5'],
+            ['S', 'M1', 'G3', 'R1', 'R1', 'P', 'M1', 'G3', 'G3', 'D1', 'P', 'M1', 'M1', 'N3', 'D1', 'P'],
+            ['S', 'G3', 'R1', 'M1', 'R1', 'P', 'G3', 'D1', 'M1', 'N3', 'P', 'S5'],
+            ['S', 'M1', 'G3', 'R1', 'R1', 'P', 'M1', 'G3', 'G3', 'D1', 'P', 'M1', 'M1', 'N3', 'D1', 'P', 'P', 'S5', 'N3', 'D1'],
+            ['S', 'G3', 'M1', 'R1', 'G3', 'P', 'D1', 'M1', 'P', 'N3', 'S5', 'D1'],
+            ['S', 'M1', 'R1', 'G3', 'M1', 'P', 'G3', 'D1', 'P', 'N3', 'M1', 'S5'],
+            ['S', 'G3', 'R1', 'M1', 'G3', 'P', 'M1', 'D1', 'P', 'N3', 'D1', 'S5', 'S5', 'D1', 'N3', 'P'],
+            ['S', 'R1', 'M1', 'G3', 'R1', 'G3', 'P', 'M1', 'G3', 'M1', 'D1', 'P', 'M1', 'P', 'N3', 'D1'],
+            ['S', 'M1', 'G3', 'P', 'R1', 'D1', 'M1', 'N3', 'G3', 'S5', 'P', 'D1'],
+            ['S', 'G3', 'R1', 'M1', 'G3', 'P', 'M1', 'D1', 'P', 'N3', 'D1', 'S5', 'S5', 'D1', 'N3', 'P', 'D1', 'M1', 'P', 'G3', 'M1', 'R1', 'G3', 'S']
+        ];
+        thattuPracticePatterns.forEach((pattern, index) => {
+            allLessons[`dt${index + 6}`] = makeBeginnerPracticeLesson(
+                `dt${index + 6}`,
+                'dhatu',
+                `${index + 6}. தாட்டு / தாது வரிசை ${index + 6} (ஸ்வரம் தாண்டும் பயிற்சி ${index + 1})`,
+                'அடுத்தடுத்த ஸ்வரங்களைத் தாண்டிப் பாடும் beginner பயிற்சி; குரு மரபுக்கு ஏற்ப pattern மற்றும் வரிசை மாறலாம்',
+                pattern,
+                [...pattern].reverse()
+            );
+        });
+
         // App State
         let currentView = 'studio';
         let currentLessonKey = 's1';
+        let ribbonAlignment = 'split';
         let currentStepIndex = 0;
         let isPlaying = false;
         let playTimer = null;
@@ -2481,6 +2710,8 @@
         let currentVoice = 'harmonium';
         let masterVolume = 0.75;
         let isZoomMode = false;
+        let lastManualJantaiMidi = null;
+        let manualJantaiTapCount = 0;
 
         // Flat timeline sequence for current lesson
         let flatSequence = [];
@@ -2560,6 +2791,30 @@
             if (masterGainNode && audioCtx) {
                 masterGainNode.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
             }
+        }
+
+        function openNotationLightbox() {
+            const ribbon = document.querySelector('#notationRibbonHome .notation-ribbon-card');
+            const lightboxContent = document.getElementById('notationLightboxContent');
+            const lightbox = document.getElementById('notationLightbox');
+            if (!ribbon || !lightboxContent || !lightbox) return;
+
+            lightboxContent.appendChild(ribbon);
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            lightbox.querySelector('.notation-lightbox-close').focus();
+        }
+
+        function closeNotationLightbox(event) {
+            const lightbox = document.getElementById('notationLightbox');
+            if (!lightbox || !lightbox.classList.contains('active')) return;
+            if (event && event.target !== lightbox && !event.target.closest('.notation-lightbox-close')) return;
+
+            const ribbon = lightbox.querySelector('.notation-ribbon-card');
+            if (ribbon) document.getElementById('notationRibbonHome').appendChild(ribbon);
+            lightbox.classList.remove('active');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.getElementById('btnOpenNotationLightbox').focus();
         }
 
         // Switch Top Level Views
@@ -2643,7 +2898,7 @@
                     westLbl.className = 'key-west-lbl';
                     westLbl.textContent = westName;
 
-                    
+                    wKey.append(swaraLbl, westLbl);
 
                     wKey.onpointerdown = (e) => onKeyPointerDown(midi, e);
                     wKey.onpointerenter = (e) => { if (e.buttons === 1) onKeyPointerDown(midi, e); };
@@ -2673,7 +2928,7 @@
                     westLbl.className = 'key-west-lbl';
                     westLbl.textContent = westName;
 
-                    
+                    bKey.append(swaraLbl, westLbl);
 
                     bKey.onpointerdown = (e) => onKeyPointerDown(midi, e);
                     bKey.onpointerenter = (e) => { if (e.buttons === 1) onKeyPointerDown(midi, e); };
@@ -2683,6 +2938,66 @@
                     pianoBed.appendChild(bKey);
                 }
             }
+            renderJantaiKeyFingerings();
+        }
+
+        function renderJantaiKeyFingerings() {
+            document.querySelectorAll('.key-repeat-fingering').forEach(badge => badge.remove());
+            document.querySelectorAll('.key-white, .key-black').forEach(key => delete key.dataset.jantaiPairs);
+            const lesson = allLessons[currentLessonKey];
+            const hint = document.getElementById('jantaKeyHint');
+            const isJantaiLesson = lesson?.cat === 'janta';
+            if (hint) hint.classList.toggle('visible', isJantaiLesson);
+            if (!isJantaiLesson) return;
+
+            const repeatedPairs = new Map();
+            for (let index = 0; index < flatSequence.length - 1;) {
+                if (flatSequence[index].midi === flatSequence[index + 1].midi) {
+                    const midi = flatSequence[index].midi;
+                    if (!repeatedPairs.has(midi)) repeatedPairs.set(midi, []);
+                    repeatedPairs.get(midi).push({ first: index, second: index + 1 });
+                    index += 2;
+                } else {
+                    index++;
+                }
+            }
+
+            repeatedPairs.forEach((pairs, midi) => {
+                const key = document.getElementById(`key_midi_${midi}`);
+                if (!key) return;
+                key.dataset.jantaiPairs = JSON.stringify(pairs);
+            });
+        }
+
+        function updateJantaiKeyFingering(midi, activeNumber) {
+            document.querySelectorAll('.key-repeat-fingering').forEach(number => number.remove());
+            if (!activeNumber) return;
+
+            const key = document.getElementById(`key_midi_${midi}`);
+            if (!key || !key.dataset.jantaiPairs) return;
+
+            const number = document.createElement('span');
+            number.className = `key-repeat-fingering number-${activeNumber === 1 ? 'one' : 'two'}`;
+            number.textContent = activeNumber;
+            number.setAttribute('aria-label', `ஜண்டை விரல் ${activeNumber}`);
+            number.title = `இந்த விசையை ${activeNumber}-வது முறை அழுத்தவும்`;
+            key.appendChild(number);
+        }
+
+        function updateJantaiPlaybackFingering(stepIndex) {
+            let activeMidi = null;
+            let activeNumber = null;
+            document.querySelectorAll('[data-jantai-pairs]').forEach(key => {
+                const pairs = JSON.parse(key.dataset.jantaiPairs || '[]');
+                const pair = pairs.find(item => item.first === stepIndex || item.second === stepIndex);
+                if (pair) {
+                    activeMidi = key.dataset.midi;
+                    activeNumber = pair.first === stepIndex ? 1 : 2;
+                }
+            });
+
+            if (activeMidi !== null) updateJantaiKeyFingering(Number(activeMidi), activeNumber);
+            else updateJantaiKeyFingering(null, null);
         }
 
         // Key Press Sound & Visual
@@ -2690,6 +3005,18 @@
             initAudio();
             playMidiNote(midi);
             highlightKeyVisual(midi, true);
+            if (event.type === 'pointerdown' && currentLessonKey.startsWith('j')) {
+                const key = document.getElementById(`key_midi_${midi}`);
+                if (key?.dataset.jantaiPairs) {
+                    manualJantaiTapCount = lastManualJantaiMidi === midi ? (manualJantaiTapCount % 2) + 1 : 1;
+                    lastManualJantaiMidi = midi;
+                    updateJantaiKeyFingering(midi, manualJantaiTapCount);
+                } else {
+                    lastManualJantaiMidi = null;
+                    manualJantaiTapCount = 0;
+                    updateJantaiKeyFingering(null, null);
+                }
+            }
 
             // If in Ear Training Quiz, check user answer
             if (currentView === 'ear_training' && quizSecretSwara) {
@@ -3349,9 +3676,21 @@
         }
 
         function onLessonSelect(lessonKey) {
+            const lesson = allLessons[lessonKey];
+            if (!lesson) return;
+
+            const categorySelector = document.getElementById('catSelector');
+            if (categorySelector.value !== lesson.cat) {
+                categorySelector.value = lesson.cat;
+                populateLessonDropdown(lesson.cat);
+                document.getElementById('lessonSelector').value = lessonKey;
+            }
+
             stopPlayback();
             currentLessonKey = lessonKey;
             currentStepIndex = 0;
+            lastManualJantaiMidi = null;
+            manualJantaiTapCount = 0;
             buildFlatSequence();
             renderTimelineRibbon();
             updateStepDisplay();
@@ -3384,6 +3723,7 @@
                     });
                 });
             });
+            renderJantaiKeyFingerings();
         }
 
         // Universal Swara Token Parser with Fingering
@@ -3449,10 +3789,19 @@
             return lineTitle || `பாகம் ${lineIdx + 1}`;
         }
 
-        // Render each lesson line as its own labeled phrase in the horizontal ribbon.
+        function setRibbonAlignment(alignment) {
+            if (alignment !== 'split' && alignment !== 'continuous') return;
+
+            ribbonAlignment = alignment;
+            const ribbon = document.getElementById('swaraRibbon');
+            if (ribbon) ribbon.classList.toggle('split-lines', alignment === 'split');
+        }
+
+        // Render each lesson line as its own labeled phrase in the notation ribbon.
         function renderTimelineRibbon() {
             const ribbon = document.getElementById('swaraRibbon');
             ribbon.innerHTML = '';
+            ribbon.classList.toggle('split-lines', ribbonAlignment === 'split');
 
             const lesson = allLessons[currentLessonKey];
             if (!lesson) return;
@@ -3479,8 +3828,11 @@
 
                     lineMeasures = document.createElement('div');
                     lineMeasures.className = 'swara-line-measures';
+                    const lineScroll = document.createElement('div');
+                    lineScroll.className = 'swara-line-scroll';
+                    lineScroll.appendChild(lineMeasures);
                     lineGroup.appendChild(lineLabel);
-                    lineGroup.appendChild(lineMeasures);
+                    lineGroup.appendChild(lineScroll);
                     ribbon.appendChild(lineGroup);
                 }
 
@@ -3554,14 +3906,19 @@
             const ribbon = document.getElementById('swaraRibbon');
             if (!ribbon || !activeNode) return;
 
-            const ribbonRect = ribbon.getBoundingClientRect();
+            const scrollArea = ribbon.classList.contains('split-lines')
+                ? activeNode.closest('.swara-line-scroll')
+                : ribbon;
+            if (!scrollArea) return;
+
+            const ribbonRect = scrollArea.getBoundingClientRect();
             const nodeRect = activeNode.getBoundingClientRect();
-            const targetLeft = ribbon.scrollLeft + nodeRect.left - ribbonRect.left - (ribbon.clientWidth - nodeRect.width) / 2;
+            const targetLeft = scrollArea.scrollLeft + nodeRect.left - ribbonRect.left - (scrollArea.clientWidth - nodeRect.width) / 2;
             const stepDurationMs = ((60 / currentBPM) / currentKaalam) * 1000;
             if (stepDurationMs >= 300) {
-                ribbon.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+                scrollArea.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
             } else {
-                ribbon.scrollLeft = Math.max(0, targetLeft);
+                scrollArea.scrollLeft = Math.max(0, targetLeft);
             }
         }
 
@@ -3676,6 +4033,7 @@
             document.getElementById('talaDisplay').textContent = lesson.tala;
             document.getElementById('lessonStepCounter').textContent = `ஸ்வரம் ${currentStepIndex + 1} / ${flatSequence.length}`;
             document.getElementById('ribbonLineTitle').textContent = `${lesson.title} · ${getCarnaticLineLabel(cur.lineTitle, cur.lineIdx)}`;
+            updateJantaiPlaybackFingering(currentStepIndex);
 
             updateTalaVisuals(lesson.tala, currentStepIndex);
 
@@ -4621,6 +4979,10 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
         };
 
         window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('notationLightbox').classList.contains('active')) {
+                closeNotationLightbox();
+                return;
+            }
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
             const key = e.key.toLowerCase();
             if (keyMap[key]) {
@@ -4676,7 +5038,7 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
     
         // App Initialization
         window.addEventListener('DOMContentLoaded', () => {
-            populateLessonDropdown('all');
+            populateLessonDropdown(document.getElementById('catSelector').value);
             render61KeyPiano();
             buildFlatSequence();
             renderTimelineRibbon();
