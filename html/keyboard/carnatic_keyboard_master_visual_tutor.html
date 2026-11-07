@@ -4465,7 +4465,7 @@
 
         // Universal Swara Token Parser with Fingering
         function parseCarnaticSwaraToken(token, baseSaMidi) {
-            let clean = token.trim();
+            let clean = token.trim().replace(/[()]/g, '');
             let octOffset = 0;
 
             // Karvai (,) / rest: sustains the previous swara for one akshara
@@ -4481,7 +4481,7 @@
                 octOffset = -1;
             }
 
-            const core = clean.replace('_tara', '').replace('_high', '').replace('_mid', '').replace('_low', '').replace('5', '').replace("'", '').replace('.', '').replace('̣', '')
+            const core = clean.replace('_tara', '').replace('_high', '').replace('_mid', '').replace('_low', '').replace('5', '').replace(/'/g, '').replace(/\./g, '').replace(/̣/g, '')
                              .replace('Ṡ', 'S').replace('Ṙ', 'R').replace('Ġ', 'G').replace('Ṁ', 'M').replace('Ṗ', 'P').replace('Ḋ', 'D').replace('Ṅ', 'N');
 
             const semiMap = {
@@ -5557,7 +5557,7 @@
                     btnPlay.style.padding = '4px 10px';
                     btnPlay.style.fontSize = '0.72rem';
                     btnPlay.textContent = '▶️ கேட்க';
-                    btnPlay.onclick = () => playMelakartaScale(r);
+                    btnPlay.onclick = () => playMelakartaScale(r, btnPlay);
 
                     actions.appendChild(btnPlay);
 
@@ -5586,7 +5586,7 @@
             const container = document.getElementById('janyaCardsContainer');
             container.innerHTML = '';
 
-            janyaRagas30.forEach(r => {
+            janyaRagas30.forEach((r, idx) => {
                 if (filterText && !r.name.toLowerCase().includes(filterText.toLowerCase()) && !r.janaka.toLowerCase().includes(filterText.toLowerCase())) {
                     return;
                 }
@@ -5606,9 +5606,13 @@
                     </div>
                     <div class="chakra-desc">${r.desc}</div>
                     <div style="display: flex; gap: 8px; margin-top: 6px;">
-                        <button class="btn-ctrl" style="padding: 4px 12px; font-size: 0.74rem;" onclick="playJanyaScale('${r.aroh}', '${r.avar}')">▶️ கேட்க (Audition)</button>
+                        <button class="btn-ctrl btn-audition" style="padding: 4px 12px; font-size: 0.74rem;" onclick="playJanyaByIndex(${idx}, this)">▶️ கேட்க (Audition)</button>
                     </div>
                 `;
+                const btnAud = card.querySelector('.btn-audition');
+                if (btnAud) {
+                    btnAud.onclick = () => playJanyaByIndex(idx, btnAud);
+                }
                 container.appendChild(card);
             });
         }
@@ -5617,29 +5621,70 @@
             renderJanyaRagas(q);
         }
 
-        function playJanyaScale(aroh, avar) {
+        let janyaAuditionTimer = null;
+        let currentAuditionBtn = null;
+        let currentAuditionOriginalText = '';
+
+        function resetAuditionButtonState() {
+            if (currentAuditionBtn) {
+                currentAuditionBtn.innerHTML = currentAuditionOriginalText || '▶️ கேட்க (Audition)';
+                currentAuditionBtn = null;
+                currentAuditionOriginalText = '';
+            }
+        }
+
+        function playJanyaByIndex(idx, btnEl) {
+            const r = janyaRagas30[idx];
+            if (r) {
+                playJanyaScale(r.aroh, r.avar, btnEl);
+            }
+        }
+
+        function playJanyaScale(aroh, avar, btnEl) {
             initAudio();
-            const tokens = aroh.split(' ').concat(avar.split(' ').slice(1));
+            if (janyaAuditionTimer) {
+                clearInterval(janyaAuditionTimer);
+                janyaAuditionTimer = null;
+                document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+            }
+            resetAuditionButtonState();
+
+            if (btnEl) {
+                currentAuditionBtn = btnEl;
+                currentAuditionOriginalText = btnEl.innerHTML;
+                btnEl.innerHTML = '🔊 வாசிக்கிறது...';
+            }
+
+            const arohTokens = (aroh || '').trim().split(/\s+/).filter(Boolean);
+            const avarTokens = (avar || '').trim().split(/\s+/).filter(Boolean);
+            const avarSlice = (avarTokens.length > 0 && arohTokens.length > 0 && avarTokens[0] === arohTokens[arohTokens.length - 1])
+                ? avarTokens.slice(1)
+                : avarTokens;
+            const tokens = arohTokens.concat(avarSlice);
             const baseMidi = 60 + currentKattai;
 
             let step = 0;
-            const timer = setInterval(() => {
+            janyaAuditionTimer = setInterval(() => {
                 if (step >= tokens.length) {
-                    clearInterval(timer);
+                    clearInterval(janyaAuditionTimer);
+                    janyaAuditionTimer = null;
+                    resetAuditionButtonState();
                     document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
                     return;
                 }
                 const tok = tokens[step];
                 const parsed = parseCarnaticSwaraToken(tok, baseMidi);
-                playMidiNote(parsed.midi, 0.4);
-                document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
-                highlightKeyVisual(parsed.midi, true);
+                if (parsed && parsed.midi) {
+                    playMidiNote(parsed.midi, 0.4, tok);
+                    document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+                    highlightKeyVisual(parsed.midi, true);
+                }
                 step++;
             }, 380);
         }
 
-        function playMelakartaScale(raga) {
-            playJanyaScale(raga.aroh, raga.avar);
+        function playMelakartaScale(raga, btnEl) {
+            playJanyaScale(raga.aroh, raga.avar, btnEl);
         }
 
         // Swara Ear Training Quiz Game Engine
