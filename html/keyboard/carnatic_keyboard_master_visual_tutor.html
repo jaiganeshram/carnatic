@@ -1534,17 +1534,17 @@
         }
         .key-hint-lbl {
             position: absolute;
-            bottom: 42px;
+            bottom: 48px;
             left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-mono);
             font-size: 0.62rem;
             font-weight: 700;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.88);
             color: #38bdf8;
             padding: 1px 4px;
             border-radius: 3px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            border: 1px solid rgba(56, 189, 248, 0.35);
             pointer-events: none;
             z-index: 5;
             line-height: 1.1;
@@ -1552,7 +1552,7 @@
         .key-black .key-hint-lbl {
             top: 6px;
             bottom: auto;
-            background: rgba(0, 0, 0, 0.88);
+            background: rgba(0, 0, 0, 0.92);
             color: #facc15;
             font-size: 0.58rem;
             border: 1px solid rgba(250, 204, 21, 0.35);
@@ -2121,29 +2121,6 @@
             border-radius: 10px;
             border: 1px solid var(--border-subtle);
         }
-        .key-hint-lbl {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            font-weight: 700;
-            background: rgba(15, 23, 42, 0.85);
-            color: #38bdf8;
-            padding: 1px 5px;
-            border-radius: 4px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            pointer-events: none;
-            z-index: 5;
-        }
-        .key-black .key-hint-lbl {
-            bottom: 18px;
-            background: rgba(0, 0, 0, 0.88);
-            color: #facc15;
-            font-size: 0.62rem;
-            border: 1px solid rgba(250, 204, 21, 0.35);
-        }
         .key-white.practice-target, .key-black.practice-target {
             border: 2px solid #fbbf24 !important;
             box-shadow: 0 0 18px rgba(251, 191, 36, 0.8), inset 0 0 12px rgba(251, 191, 36, 0.4) !important;
@@ -2339,6 +2316,7 @@
         <!-- Navigation Tabs -->
         <nav class="header-tabs">
             <button class="nav-tab-btn active" onclick="switchView('studio')">🎵 பாடம் & பயிற்சி (Studio)</button>
+            <button class="nav-tab-btn" onclick="switchView('voice_training')">🎙️ குரல் பயிற்சி (Voice Culture)</button>
             <button class="nav-tab-btn" onclick="switchView('sthayi_theory')">📖 ஸ்தாயி தத்துவம் & பயிற்சி (Sthayi Theory)</button>
             <button class="nav-tab-btn" onclick="switchView('melakarta')">🌀 72 மேளகர்த்தா (72 Ragas)</button>
             <button class="nav-tab-btn" onclick="switchView('janya')">🎼 30 ஜன்ய ராகங்கள் (Janya)</button>
@@ -2635,6 +2613,7 @@
                         <!-- Keyboard Zoom Toggle -->
                         <button class="btn-ctrl" id="btnZoomKbd" style="padding: 5px 12px; font-size: 0.76rem;" onclick="toggleKeyboardZoom()">🔍 பெரிதாக்கு (2-Octave Zoom)</button>
                         <button class="btn-ctrl" id="btnOpenKeyboardLightbox" type="button" style="padding: 5px 12px; font-size: 0.76rem;" onclick="openKeyboardLightbox()" aria-label="விசைப்பலகையை முழுத்திரையில் திற" title="விசைப்பலகையை முழுத்திரையில் பார்க்க">⛶ முழுத்திரை</button>
+                        <button class="btn-ctrl" id="btnShortcutsHelp" type="button" style="padding: 5px 12px; font-size: 0.76rem;" onclick="openShortcutsModal()" aria-label="விசைப்பலகை குறுக்குவழிகள் உதவி" title="கணினி விசைப்பலகை குறுக்குவழிகள் (Press ?)">⌨️ குறுக்குவழிகள் (?)</button>
                         
                         <div class="kbd-legend">
                             <span><span class="legend-dot" style="background: var(--gold-bright);"></span> நடு C4 (Middle C)</span>
@@ -3072,6 +3051,139 @@
                 </div>
             </div>
         </div>
+
+        <!-- ================= VIEW 9: VOICE CULTURE & SWEETENING ================= -->
+        <div id="viewVoiceTraining" class="view-panel">
+            <div class="glass-card">
+                <div class="station-header">
+                    <div class="station-title-wrap">
+                        <h2>🎙️ குரல் பண்பேற்றம் & இனிமைப் பயிற்சி அரங்கம் (Voice Culture & Sweetening Studio)</h2>
+                        <p>கர்நாடக ஸ்வரக் கட்டுப்பாடு இல்லாத நவீன, எளிய குரல் இனிமைப் பயிற்சிகள் • தேன் போன்ற மென்மையான குரல் வளம் பெற எளிய முறை</p>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn-ctrl" onclick="toggleTanpuraDrone()" style="padding: 6px 14px; font-size: 0.8rem; border-color: var(--gold-bright); color: var(--gold-bright);">🪕 தம்பூரா ட்ரோன் (Tanpura)</button>
+                        <button class="btn-ctrl" onclick="toggleMicListening()" style="padding: 6px 14px; font-size: 0.8rem; border-color: #10b981; color: #10b981;">🎙️ மைக் சுருதிமானி (Mic Tuner)</button>
+                        <button class="btn-ctrl" onclick="toggleAudioRecorder()" style="padding: 6px 14px; font-size: 0.8rem; border-color: #f43f5e; color: #f43f5e;">⏺️ குரல் பதிவு (Record)</button>
+                    </div>
+                </div>
+
+                <!-- 5 Core Exercises Grid -->
+                <div class="psr-grid" style="margin-top: 16px;">
+                    
+                    <!-- 1. Humming -->
+                    <div class="psr-card" style="border-left: 4px solid var(--gold-bright);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; color: var(--gold-bright);">🍯 1. தேன் போன்ற குரலுக்கு: ஹம்மிங் (Humming - "Mmm...")</h3>
+                            <span class="theory-badge">Resonance</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 6px 0;">
+                            தொண்டைக் கத்தாமல், மூக்கு & நெற்றிப் பகுதியில் அதிர்வை (Vocal Mask Resonance) உண்டாக்கி குரலுக்கு மென்மையும் இயற்கையான இனிமையும் தரும்.
+                        </p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 0.8rem; line-height: 1.6;">
+                            <strong>எப்படி செய்வது:</strong> உதடுகளை மூடி, வாய்க்குள் பெரிய இனிப்பு மிட்டாய் இருப்பது போல தாடையைத் தளர்த்தி "ம்ம்ம்..." (Mmm...) என மெதுவாக முனகுங்கள். உதட்டில் கூச்ச அதிர்வு (Vibration) ஏற்பட வேண்டும்.
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+                            <button class="btn-ctrl btn-primary" onclick="playVoiceHummingTone(this)" style="padding: 6px 14px; font-size: 0.78rem;">▶️ ஹம்மிங் சுருதி ஒலி (Play Sa-Pa Tone)</button>
+                            <button class="btn-ctrl" onclick="stopVoiceWarmupAudio()" style="padding: 6px 12px; font-size: 0.78rem;">⏹️ நிறுத்து (Stop)</button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Lip Trills -->
+                    <div class="psr-card" style="border-left: 4px solid var(--cyan-accent);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; color: var(--cyan-accent);">🫧 2. குரல் கரகரப்பு & விரிசல் நீங்க: லிப் ட்ரில்ஸ் (Lip Trills - "Brrr...")</h3>
+                            <span class="theory-badge" style="background: rgba(56,189,248,0.2); color: #38bdf8;">Airflow</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 6px 0;">
+                            குரல் நாண்களில் எந்த அழுத்தமும் தராமல் குரல் உடைவதையோ (Voice Cracks), கரகரப்பையோ போக்கி குரல்வளையை லகுவாக்கும் (Vocal Relaxer).
+                        </p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 0.8rem; line-height: 1.6;">
+                            <strong>எப்படி செய்வது:</strong> இரு கன்னங்களை விரல்களால் தாங்கி, உதடுகளைத் தளர்த்தி "ப்ர்ர்ர்..." (Brrr...) என காற்றை ஊதி சுருதியோடு ஏற்றி இறக்குங்கள் (குழந்தைகள் கார் ஓட்டுவது போல).
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+                            <button class="btn-ctrl btn-primary" onclick="playVoiceLipTrillScale(this)" style="padding: 6px 14px; font-size: 0.78rem;">▶️ 5-ஸ்வர அலைவு பயிற்சி (Play 5-Note Run)</button>
+                            <button class="btn-ctrl" onclick="stopVoiceWarmupAudio()" style="padding: 6px 12px; font-size: 0.78rem;">⏹️ நிறுத்து (Stop)</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Vocal Siren -->
+                    <div class="psr-card" style="border-left: 4px solid #a855f7;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; color: #c084fc;">🚨 3. அடிக்குரல் - தலைக்குரல் இணைப்பு: சைரன் (Vocal Sirens - "Oooh")</h3>
+                            <span class="theory-badge" style="background: rgba(168,85,247,0.2); color: #c084fc;">Flexibility</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 6px 0;">
+                            கனமான அடிக்குரலில் (Chest Voice) இருந்து மெல்லிய தலைக்குரலுக்கு (Head Voice) குரல் உடையும் இடைவெளியைச் சரிசெய்து நெகிழ்வுத்தன்மை தரும்.
+                        </p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 0.8rem; line-height: 1.6;">
+                            <strong>எப்படி செய்வது:</strong> ஆம்புலன்ஸ் சைரன் போல அடிக்குரலிலிருந்து "ஊஊஊ..." (Oooh) என உச்ச சுருதிக்கு மெதுவாக உயர்த்தி, மீண்டும் மெதுவாகக் கீழே இறக்குங்கள்.
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+                            <button class="btn-ctrl btn-primary" onclick="playVoiceSirenGlide(this)" style="padding: 6px 14px; font-size: 0.78rem;">▶️ சைரன் வழிகாட்டி ஒலி (Play Siren Glide)</button>
+                            <button class="btn-ctrl" onclick="stopVoiceWarmupAudio()" style="padding: 6px 12px; font-size: 0.78rem;">⏹️ நிறுத்து (Stop)</button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Vowel Shaping -->
+                    <div class="psr-card" style="border-left: 4px solid #ec4899;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; color: #f472b6;">👄 4. இனிமையான உச்சரிப்பு: 5 உயிர் எழுத்துகள் (Mee, May, Mah, Moh, Moo)</h3>
+                            <span class="theory-badge" style="background: rgba(236,72,153,0.2); color: #f472b6;">Vocal Shape</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 6px 0;">
+                            குரல் அடைபட்டுப் போகாமல், தெளிவான வாயமைப்போடு சொற்கள் இனிமையாக வெளிவர உதவும் உலகத்தரம் வாய்ந்த பயிற்சி.
+                        </p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 0.8rem; line-height: 1.6;">
+                            <strong>எப்படி செய்வது:</strong> ஒவ்வொரு உயிர் எழுத்தையும் ஒரே சுருதியில் 3 வினாடிகள் நீட்டிப் பாடுங்கள்: <b>மீ... மே... மா... மோ... மூ...</b>
+                            <div id="vowelActiveDisplay" style="margin-top: 6px; color: var(--gold-bright); font-weight: bold;">பட்டனை அழுத்தும்போது வரிசையாக ஒலிக்கத் தொடங்கும்.</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+                            <button class="btn-ctrl btn-primary" onclick="play5VowelsExercise(this)" style="padding: 6px 14px; font-size: 0.78rem;">▶️ 5 உயிர் எழுத்துகள் பயிற்சி (Start 5 Vowels)</button>
+                            <button class="btn-ctrl" onclick="stopVoiceWarmupAudio()" style="padding: 6px 12px; font-size: 0.78rem;">⏹️ நிறுத்து (Stop)</button>
+                        </div>
+                    </div>
+
+                    <!-- 5. Diaphragmatic Breathing Trainer -->
+                    <div class="psr-card" style="border-left: 4px solid #10b981;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; color: #34d399;">🫁 5. குரல் நடுக்கம் நிற்க: 4-4-8 தொப்பை மூச்சுப் பயிற்சி (Breath Trainer)</h3>
+                            <span class="theory-badge" style="background: rgba(16,185,129,0.2); color: #34d399;">Diaphragm</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 6px 0;">
+                            பாடும்போது மூச்சுத் திணறல் வராமலும், குரல் நடுங்காமல் ஒரே சீராக நீண்ட நேரம் நிலைத்து நிற்கவும் இந்த ஆழமான மூச்சுப் பயிற்சி மிக அவசியம்.
+                        </p>
+                        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; text-align: center;">
+                            <div id="breathTimerCircle" style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--cyan-accent); margin: 0 auto 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(15,23,42,0.8); transition: border-color 0.3s ease;">
+                                <span id="breathCountText" style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 800; color: #fff;">4-4-8</span>
+                            </div>
+                            <div id="breathStatusText" style="font-size: 0.88rem; font-family: var(--font-ta); color: #fff;">தயார் நிலையில் உள்ளது</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 10px; justify-content: center;">
+                            <button id="btnBreathToggle" class="btn-ctrl btn-primary" onclick="toggleBreathingGuide()" style="padding: 8px 18px; font-size: 0.82rem;">▶️ மூச்சுப் பயிற்சியைத் தொடங்கு (Start)</button>
+                        </div>
+                    </div>
+
+                    <!-- 6. Daily 10-Minute Routine & Habits -->
+                    <div class="psr-card" style="border-left: 4px solid #f97316;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; color: #fb923c;">📋 தினசரி 10 நிமிட குரல் இனிமை அட்டவணை & பொன் விதிகள்</h3>
+                            <span class="theory-badge" style="background: rgba(249,115,22,0.2); color: #fb923c;">Daily Habits</span>
+                        </div>
+                        <div style="font-size: 0.8rem; line-height: 1.7; color: var(--text-main);">
+                            <div>⏱️ <b>நிமிடம் 1 - 2:</b> 4-4-8 தொப்பை மூச்சுப் பயிற்சி (குரல் நடுக்கம் போக்க).</div>
+                            <div>⏱️ <b>நிமிடம் 3 - 5:</b> தம்பூராவுடன் மென்மையான ஹம்மிங் "ம்ம்ம்..." (குரல் இனிமைக்கு).</div>
+                            <div>⏱️ <b>நிமிடம் 6 - 7:</b> லிப் ட்ரில்ஸ் "ப்ர்ர்ர்..." (தொண்டை லகுவாக).</div>
+                            <div>⏱️ <b>நிமிடம் 8 - 9:</b> சைரன் "ஊஊஊ..." (அடிக்குரல் - தலைக்குரல் தாவல்).</div>
+                            <div>⏱️ <b>நிமிடம் 10:</b> 5 உயிர் எழுத்துகள் (மீ, மே, மா, மோ, மூ).</div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 8px; font-size: 0.76rem; color: #fde047; margin-top: 6px;">
+                            💡 <b>பொன் விதிகள்:</b> தினமும் காலை மிதமான வெதுவெதுப்பான சுடுநீர் குடிக்கவும். தொண்டையைக் கனைக்காதீர்கள் (Clear throat). ஐஸ் தண்ணீர், அதிக காரத்தைத் தவிர்க்கவும்.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     
     </main>
 
@@ -3101,6 +3213,85 @@
             <button class="modal-close-btn notation-lightbox-close" type="button" onclick="closeNotationLightbox()" aria-label="மூடு">✕</button>
             <h2 id="notationLightboxTitle" style="color: var(--gold-bright); font-family: var(--font-ta); margin: 0 42px 14px 0;">📜 ஸ்வர வரிசை & விரல் எண்கள்</h2>
             <div id="notationLightboxContent" class="notation-lightbox-content"></div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Guide Modal -->
+    <div class="modal-overlay" id="shortcutsModal" onclick="closeShortcutsModal(event)" aria-hidden="true">
+        <div class="modal-window" style="max-width: 720px; max-height: 85vh; overflow-y: auto;" onclick="event.stopPropagation()">
+            <button class="modal-close-btn" onclick="closeShortcutsModal()" aria-label="மூடு">✕</button>
+            <h2 style="color: var(--gold-bright); font-family: var(--font-ta); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                ⌨️ கணினி விசைப்பலகை குறுக்குவழிகள் (Keyboard Shortcuts)
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 16px;">
+                மவுஸ் இல்லாமலேயே உங்கள் லேப்டாப் / கணினி கீபோர்டைப் பயன்படுத்தி இசையை வாசிக்கவும் கட்டுப்படுத்தவும் உதவும் முழுமையான வழிகாட்டி.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                
+                <!-- Section 1: Playing Notes -->
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px 16px;">
+                    <h4 style="color: var(--cyan-accent); margin-bottom: 10px; font-size: 0.92rem;">🎹 ஸ்வரங்கள் வாசிக்க (Piano Keys - 2.5 Octaves)</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; font-size: 0.82rem;">
+                        <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px;">
+                            <span style="color: var(--gold-bright); font-weight: bold; display: block; margin-bottom: 6px;">மத்திய ஸ்தாயி (Middle C4-C5):</span>
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">A</kbd> ஸ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">S</kbd> ரி₂ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">D</kbd> க₃ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">F</kbd> ம₁ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">G</kbd> ப &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">H</kbd> த₂ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">J</kbd> நி₃ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#38bdf8; font-weight:bold;">K</kbd> தார ஸ
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px;">
+                            <span style="color: #facc15; font-weight: bold; display: block; margin-bottom: 6px;">மத்திய கருப்பு கட்டைகள் (Sharps):</span>
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#facc15; font-weight:bold;">W</kbd> ரி₁ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#facc15; font-weight:bold;">E</kbd> க₂ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#facc15; font-weight:bold;">T</kbd> ம₂ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#facc15; font-weight:bold;">Y</kbd> த₁ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#facc15; font-weight:bold;">U</kbd> நி₂
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px;">
+                            <span style="color: #a5b4fc; font-weight: bold; display: block; margin-bottom: 6px;">மந்திர ஸ்தாயி (Lower C3-B3):</span>
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#a5b4fc; font-weight:bold;">Z</kbd> .ஸ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#a5b4fc; font-weight:bold;">X</kbd> .ரி &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#a5b4fc; font-weight:bold;">C</kbd> .க &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#a5b4fc; font-weight:bold;">V</kbd> .ம &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#a5b4fc; font-weight:bold;">B</kbd> .ப &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#a5b4fc; font-weight:bold;">N</kbd> .த &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#a5b4fc; font-weight:bold;">M</kbd> .நி
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px;">
+                            <span style="color: #f472b6; font-weight: bold; display: block; margin-bottom: 6px;">தார ஸ்தாயி (Higher C5-F5):</span>
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#f472b6; font-weight:bold;">K</kbd> Ṡ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#facc15; font-weight:bold;">O</kbd> Ṙ₁ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#f472b6; font-weight:bold;">L</kbd> Ṙ₂ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#facc15; font-weight:bold;">P</kbd> Ġ₂ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#f472b6; font-weight:bold;">;</kbd> Ġ₃ &nbsp;
+                            <kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#f472b6; font-weight:bold;">'</kbd> Ṁ₁
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Player & Controls -->
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px 16px;">
+                    <h4 style="color: var(--gold-bright); margin-bottom: 10px; font-size: 0.92rem;">🎵 பாடம் & இசை கட்டுப்பாடுகள் (Playback Controls)</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; font-size: 0.82rem;">
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">Spacebar</kbd> : ▶️ பாடத்தை இயக்கு / நிறுத்து (Play/Pause)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">← / →</kbd> : ⏮️ முந்தைய / அடுத்த ஸ்வரம் (Prev/Next Step)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">↑ / ↓</kbd> : ⚡ வேகம் கூட்டு / குறை (Tempo ±5 BPM)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">Shift + R</kbd> : ⏹️ ஆரம்பத்திற்குச் செல் (Reset Lesson)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">Shift + L</kbd> : 🔁 லூப் மாற்று (Toggle Loop Mode)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">Shift + T</kbd> : 🪕 தம்பூரா மாற்று (Toggle Tanpura Drone)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">Shift + M</kbd> : 🎙️ மைக் மாற்று (Toggle Live Mic Tuner)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">[ / ]</kbd> : 🎹 ஸ்தாயி மாற்று (Octave Down / Up)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">?</kbd> : ⌨️ இந்தக் குறுக்குவழி வழிகாட்டியைத் திற (Help)</div>
+                        <div><kbd style="background:#1e293b; padding:2px 7px; border-radius:4px; color:#fff; font-weight:bold;">Esc</kbd> : ✕ சாளரங்களை மூடு (Close Active Window)</div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -3312,18 +3503,26 @@
 
             const viewMap = {
                 'studio': { id: 'viewStudio', tabIdx: 0 },
-                'sthayi_theory': { id: 'viewSthayiTheory', tabIdx: 1 },
-                'melakarta': { id: 'viewMelakarta', tabIdx: 2 },
-                'janya': { id: 'viewJanyaRagas', tabIdx: 3 },
-                'ear_training': { id: 'viewEarTraining', tabIdx: 4 },
-                'swaras': { id: 'viewSwaras', tabIdx: 5 },
-                'psr_guide': { id: 'viewPsrGuide', tabIdx: 6 },
-                'diagrams': { id: 'viewDiagrams', tabIdx: 7 }
+                'voice_training': { id: 'viewVoiceTraining', tabIdx: 1 },
+                'sthayi_theory': { id: 'viewSthayiTheory', tabIdx: 2 },
+                'melakarta': { id: 'viewMelakarta', tabIdx: 3 },
+                'janya': { id: 'viewJanyaRagas', tabIdx: 4 },
+                'ear_training': { id: 'viewEarTraining', tabIdx: 5 },
+                'swaras': { id: 'viewSwaras', tabIdx: 6 },
+                'psr_guide': { id: 'viewPsrGuide', tabIdx: 7 },
+                'diagrams': { id: 'viewDiagrams', tabIdx: 8 }
             };
 
             if (viewMap[viewName]) {
-                document.getElementById(viewMap[viewName].id).classList.add('active');
-                document.querySelectorAll('.nav-tab-btn')[viewMap[viewName].tabIdx].classList.add('active');
+                const targetPanel = document.getElementById(viewMap[viewName].id);
+                if (targetPanel) targetPanel.classList.add('active');
+                const targetBtn = document.querySelectorAll('.nav-tab-btn')[viewMap[viewName].tabIdx];
+                if (targetBtn) targetBtn.classList.add('active');
+            }
+
+            if (viewName !== 'voice_training') {
+                if (typeof stopVoiceWarmupAudio === 'function') stopVoiceWarmupAudio();
+                if (typeof breathingActive !== 'undefined' && breathingActive) toggleBreathingGuide();
             }
 
             if (viewName === 'ear_training' && !quizSecretSwara) {
@@ -3339,7 +3538,9 @@
                 // Mandra Sthayi (C3 - B3)
                 48: 'Z', 50: 'X', 52: 'C', 53: 'V', 55: 'B', 57: 'N', 59: 'M',
                 // Madhya Sthayi (C4 - C5)
-                60: 'A', 61: 'W', 62: 'S', 63: 'E', 64: 'D', 65: 'F', 66: 'T', 67: 'G', 68: 'Y', 69: 'H', 70: 'U', 71: 'J', 72: 'K'
+                60: 'A', 61: 'W', 62: 'S', 63: 'E', 64: 'D', 65: 'F', 66: 'T', 67: 'G', 68: 'Y', 69: 'H', 70: 'U', 71: 'J', 72: 'K',
+                // Tara Sthayi (C#5 - F5)
+                73: 'O', 74: 'L', 75: 'P', 76: ';', 77: "'"
             };
             return map[midi] || '';
         }
@@ -5687,6 +5888,163 @@
             playJanyaScale(raga.aroh, raga.avar, btnEl);
         }
 
+        // ================= VOICE CULTURE & SWEETENING AUDIO ENGINE =================
+        let voiceTrainingTimer = null;
+        let breathingInterval = null;
+        let breathingActive = false;
+
+        function playVoiceHummingTone(btnEl) {
+            initAudio();
+            stopVoiceWarmupAudio();
+            const baseMidi = 60 + currentKattai;
+            playMidiNote(baseMidi, 8.0, 'S');
+            playMidiNote(baseMidi + 7, 8.0, 'P');
+            highlightKeyVisual(baseMidi, true);
+            highlightKeyVisual(baseMidi + 7, true);
+            if (btnEl) btnEl.textContent = '🔊 ஒலிக்கிறது... (Mmm)';
+            voiceTrainingTimer = setTimeout(() => {
+                document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+                if (btnEl) btnEl.textContent = '▶️ ஹம்மிங் சுருதி ஒலி (Play Sa-Pa Tone)';
+                voiceTrainingTimer = null;
+            }, 8000);
+        }
+
+        function playVoiceLipTrillScale(btnEl) {
+            initAudio();
+            stopVoiceWarmupAudio();
+            const baseMidi = 60 + currentKattai;
+            const semitones = [0, 2, 4, 5, 7, 5, 4, 2, 0];
+            let i = 0;
+            if (btnEl) btnEl.textContent = '🔊 அலைவு ஒலிக்கிறது...';
+            voiceTrainingTimer = setInterval(() => {
+                if (i >= semitones.length) {
+                    clearInterval(voiceTrainingTimer);
+                    voiceTrainingTimer = null;
+                    document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+                    if (btnEl) btnEl.textContent = '▶️ 5-ஸ்வர அலைவு பயிற்சி (Play 5-Note Run)';
+                    return;
+                }
+                const midi = baseMidi + semitones[i];
+                playMidiNote(midi, 0.45);
+                document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+                highlightKeyVisual(midi, true);
+                i++;
+            }, 450);
+        }
+
+        function playVoiceSirenGlide(btnEl) {
+            initAudio();
+            stopVoiceWarmupAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const baseFreq = midiToFreq(48 + currentKattai);
+            const topFreq = midiToFreq(72 + currentKattai);
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(baseFreq, now);
+            osc.frequency.exponentialRampToValueAtTime(topFreq, now + 2.4);
+            osc.frequency.exponentialRampToValueAtTime(baseFreq, now + 4.8);
+            gain.gain.setValueAtTime(0.001, now);
+            gain.gain.linearRampToValueAtTime(masterVolume * 0.45, now + 0.3);
+            gain.gain.setValueAtTime(masterVolume * 0.45, now + 4.5);
+            gain.gain.linearRampToValueAtTime(0.0001, now + 5.0);
+            osc.connect(gain);
+            gain.connect(masterGainNode);
+            osc.start(now);
+            osc.stop(now + 5.0);
+            if (btnEl) btnEl.textContent = '🔊 சைரன் ஒலிக்கிறது...';
+            voiceTrainingTimer = setTimeout(() => {
+                if (btnEl) btnEl.textContent = '▶️ சைரன் வழிகாட்டி ஒலி (Play Siren Glide)';
+                voiceTrainingTimer = null;
+            }, 5100);
+        }
+
+        function play5VowelsExercise(btnEl) {
+            initAudio();
+            stopVoiceWarmupAudio();
+            const baseMidi = 60 + currentKattai;
+            const swaras = [0, 2, 4, 5, 7];
+            const vowels = ['மீ (Mee)', 'மே (May)', 'மா (Mah)', 'மோ (Moh)', 'மூ (Moo)'];
+            let step = 0;
+            const vEl = document.getElementById('vowelActiveDisplay');
+            if (btnEl) btnEl.textContent = '🔊 உயிர் எழுத்துகள் ஒலிக்கிறது...';
+            voiceTrainingTimer = setInterval(() => {
+                if (step >= swaras.length) {
+                    clearInterval(voiceTrainingTimer);
+                    voiceTrainingTimer = null;
+                    if (vEl) vEl.textContent = 'முடிந்தது! மீண்டும் பயிற்சி செய்யுங்கள்.';
+                    if (btnEl) btnEl.textContent = '▶️ 5 உயிர் எழுத்துகள் பயிற்சி (Start 5 Vowels)';
+                    document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+                    return;
+                }
+                const midi = baseMidi + swaras[step];
+                playMidiNote(midi, 2.0);
+                if (vEl) vEl.innerHTML = `இப்போது பாடுங்கள்: <span style="color:#38bdf8; font-size:1.05rem;">${vowels[step]}</span>`;
+                document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+                highlightKeyVisual(midi, true);
+                step++;
+            }, 2300);
+        }
+
+        function stopVoiceWarmupAudio() {
+            if (voiceTrainingTimer) {
+                clearInterval(voiceTrainingTimer);
+                clearTimeout(voiceTrainingTimer);
+                voiceTrainingTimer = null;
+            }
+            document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+        }
+
+        function toggleBreathingGuide() {
+            const btn = document.getElementById('btnBreathToggle');
+            const statusText = document.getElementById('breathStatusText');
+            const timerCircle = document.getElementById('breathTimerCircle');
+            const countText = document.getElementById('breathCountText');
+
+            if (breathingActive) {
+                clearInterval(breathingInterval);
+                breathingInterval = null;
+                breathingActive = false;
+                if (btn) btn.innerHTML = '▶️ மூச்சுப் பயிற்சியைத் தொடங்கு (Start)';
+                if (statusText) statusText.textContent = 'தயார் நிலையில் உள்ளது';
+                if (countText) countText.textContent = '4-4-8';
+                if (timerCircle) timerCircle.style.borderColor = 'var(--cyan-accent)';
+                return;
+            }
+
+            breathingActive = true;
+            if (btn) btn.innerHTML = '⏹️ நிறுத்து (Stop)';
+
+            let phase = 0; // 0 = Inhale 4s, 1 = Hold 4s, 2 = Exhale 8s
+            let secondsLeft = 4;
+
+            function tick() {
+                if (!breathingActive) return;
+                if (secondsLeft <= 0) {
+                    phase = (phase + 1) % 3;
+                    secondsLeft = (phase === 2) ? 8 : 4;
+                }
+
+                if (countText) countText.textContent = secondsLeft + 's';
+
+                if (phase === 0) {
+                    if (statusText) statusText.innerHTML = '<span style="color:#10b981; font-weight:800;">🟢 மூச்சை உள்ளிழுங்கள் (Inhale)</span>';
+                    if (timerCircle) timerCircle.style.borderColor = '#10b981';
+                } else if (phase === 1) {
+                    if (statusText) statusText.innerHTML = '<span style="color:#f59e0b; font-weight:800;">🟡 மூச்சை அடக்கி வையுங்கள் (Hold)</span>';
+                    if (timerCircle) timerCircle.style.borderColor = '#f59e0b';
+                } else {
+                    if (statusText) statusText.innerHTML = '<span style="color:#38bdf8; font-weight:800;">🔵 மெதுவாக "ஸ்ஸ்ஸ்" என வெளியேற்றுங்கள் (Exhale)</span>';
+                    if (timerCircle) timerCircle.style.borderColor = '#38bdf8';
+                }
+                secondsLeft--;
+            }
+
+            tick();
+            breathingInterval = setInterval(tick, 1000);
+        }
+
         // Swara Ear Training Quiz Game Engine
         function startNewQuizRound() {
             initAudio();
@@ -5927,51 +6285,137 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
             }
         }
 
-        // Computer Keyboard Hotkeys for Playing Notes
+        // Shortcuts Guide Modal Controls
+        function openShortcutsModal() {
+            const modal = document.getElementById('shortcutsModal');
+            if (modal) {
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+            }
+        }
+
+        function closeShortcutsModal(e) {
+            if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('modal-close-btn')) return;
+            const modal = document.getElementById('shortcutsModal');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        // Computer Keyboard Hotkeys for Playing Notes (3 Full Octaves)
         const keyMap = {
-            // Mandra Sthayi (C3 - B3)
+            // Mandra Sthayi (C3 - B3) Lower Octave
             'z': 48, 'x': 50, 'c': 52, 'v': 53, 'b': 55, 'n': 57, 'm': 59,
-            // Madhya Sthayi (C4 - C5) Home row & sharps
+            // Madhya Sthayi (C4 - C5) Middle Octave Home row & Sharps
             'a': 60, 'w': 61, 's': 62, 'e': 63, 'd': 64, 'f': 65, 't': 66, 'g': 67, 'y': 68, 'h': 69, 'u': 70, 'j': 71, 'k': 72,
-            // Standard synthesizer QWERTY row mappings
-            'q': 60, '2': 61, '3': 63, 'r': 65, '5': 66, '6': 68, '7': 70, 'i': 72
+            // Tara Sthayi (C5 - F5) Higher Octave
+            'o': 73, 'l': 74, 'p': 75, ';': 76, "'": 77,
+            // Alternative QWERTY Synth Mappings
+            'q': 60, '2': 61, '3': 63, '4': 65, '5': 66, '6': 68, '7': 70, 'i': 72
         };
 
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.getElementById('keyboardLightbox').classList.contains('active')) {
-                closeKeyboardLightbox();
+            if (e.key === 'Escape') {
+                if (document.getElementById('keyboardLightbox') && document.getElementById('keyboardLightbox').classList.contains('active')) {
+                    closeKeyboardLightbox();
+                    return;
+                }
+                if (document.getElementById('notationLightbox') && document.getElementById('notationLightbox').classList.contains('active')) {
+                    closeNotationLightbox();
+                    return;
+                }
+                if (document.getElementById('shortcutsModal') && document.getElementById('shortcutsModal').classList.contains('active')) {
+                    closeShortcutsModal();
+                    return;
+                }
+                if (document.getElementById('lyricsModal') && document.getElementById('lyricsModal').classList.contains('active')) {
+                    closeLyricsModal();
+                    return;
+                }
+            }
+
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+
+            // Help Dialog Shortcut: ?
+            if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
+                e.preventDefault();
+                openShortcutsModal();
                 return;
             }
-            if (e.key === 'Escape' && document.getElementById('notationLightbox').classList.contains('active')) {
-                closeNotationLightbox();
+
+            // Transport Control Shortcuts
+            if (e.code === 'Space') {
+                e.preventDefault();
+                togglePlayPause();
                 return;
             }
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                adjustBPM(5);
+                return;
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                adjustBPM(-5);
+                return;
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                stepBackward();
+                return;
+            }
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                stepForward();
+                return;
+            }
+            if (e.shiftKey && e.key.toLowerCase() === 'r') {
+                e.preventDefault();
+                resetLesson();
+                return;
+            }
+            if (e.shiftKey && e.key.toLowerCase() === 'l') {
+                e.preventDefault();
+                toggleLoop();
+                return;
+            }
+            if (e.shiftKey && e.key.toLowerCase() === 't') {
+                e.preventDefault();
+                toggleTanpuraDrone();
+                return;
+            }
+            if (e.shiftKey && e.key.toLowerCase() === 'm') {
+                e.preventDefault();
+                toggleMicListening();
+                return;
+            }
+            if (e.key === '[') {
+                shiftSthayi(-1);
+                return;
+            }
+            if (e.key === ']') {
+                shiftSthayi(1);
+                return;
+            }
+            if (e.key === '\\') {
+                resetSthayi();
+                return;
+            }
+
+            // Piano Key Playing (Prevent machine-gun repeat on hold)
+            if (e.repeat) return;
             const key = e.key.toLowerCase();
-            if (keyMap[key]) {
+            if (keyMap[key] !== undefined) {
                 const midi = keyMap[key] + currentKattai + (currentBaseSthayi * 12);
                 playMidiNote(midi);
                 highlightKeyVisual(midi, true);
-
-            } else if (e.code === 'Space') {
-                e.preventDefault();
-                togglePlayPause();
-            } else if (e.key === '[') {
-                shiftSthayi(-1);
-            } else if (e.key === ']') {
-                shiftSthayi(1);
-            } else if (e.key === '\\') {
-                resetSthayi();
-            } else if (e.key === 'ArrowLeft') {
-                stepBackward();
-            } else if (e.key === 'ArrowRight') {
-                stepForward();
             }
         });
 
         window.addEventListener('keyup', (e) => {
             const key = e.key.toLowerCase();
-            if (keyMap[key]) {
+            if (keyMap[key] !== undefined) {
                 const midi = keyMap[key] + currentKattai + (currentBaseSthayi * 12);
                 highlightKeyVisual(midi, false);
             }
