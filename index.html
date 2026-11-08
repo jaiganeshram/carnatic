@@ -469,6 +469,137 @@
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
         }
 
+        .select-highlight {
+            animation: selectFlash 0.6s ease;
+        }
+
+        @keyframes selectFlash {
+            0% { border-color: var(--gold-bright); box-shadow: 0 0 16px rgba(251, 191, 36, 0.8); }
+            100% { border-color: rgba(255, 255, 255, 0.12); box-shadow: none; }
+        }
+
+        .lesson-load-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), rgba(99, 102, 241, 0.15));
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            border-radius: 12px;
+            padding: 9px 16px;
+            gap: 12px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            margin-top: 4px;
+        }
+
+        .banner-pulse {
+            animation: bannerPop 0.4s ease;
+        }
+
+        @keyframes bannerPop {
+            0% { transform: scale(0.97); opacity: 0.4; }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Stepper Navigation Buttons */
+        .btn-mini-step {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+            padding: 4px 11px;
+            border-radius: 6px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            font-family: var(--font-ta);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .btn-mini-step:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: var(--gold-bright);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .btn-mini-step.btn-primary-step {
+            background: linear-gradient(135deg, #d4af37, #b45309);
+            color: #070913;
+            border-color: var(--gold-bright);
+        }
+
+        .btn-mini-step.btn-primary-step:hover {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #000;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+        }
+
+        .btn-nav-lesson {
+            font-weight: 800 !important;
+            font-size: 0.85rem !important;
+            padding: 7px 16px !important;
+            letter-spacing: 0.2px;
+        }
+
+        /* Lightbox Window Overrides & Contents */
+        .keyboard-lightbox-window,
+        .notation-lightbox-window,
+        .image-lightbox-window {
+            max-width: 96vw;
+            width: 1350px;
+            max-height: 92vh;
+            background: rgba(10, 14, 30, 0.96);
+            border: 2px solid var(--gold-bright);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 175, 55, 0.35);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .keyboard-lightbox-content {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 14px;
+        }
+
+        .keyboard-lightbox-content .keyboard-chassis {
+            margin: 0 auto;
+        }
+
+        .notation-lightbox-content {
+            width: 100%;
+            max-height: 72vh;
+            overflow-y: auto;
+            overflow-x: auto;
+            padding: 12px;
+        }
+
+        .image-lightbox-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            max-height: 72vh;
+            overflow: auto;
+        }
+
+        .image-lightbox-body img {
+            max-width: 100%;
+            max-height: 68vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        }
+
         /* Playback Control Bar */
         .playback-strip {
             display: flex;
@@ -1053,36 +1184,287 @@
             padding: 4px 8px;
         }
 
-        .modal-window.notation-lightbox-window .notation-ribbon-card {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            min-height: 0;
-            margin: 0;
-            padding: 10px 12px;
+        /* ================= CONFIGURABLE NOTATION ALIGNMENT & SIZING ================= */
+        .segmented-ctrl {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            padding: 2px;
+            gap: 2px;
+            vertical-align: middle;
         }
 
-        .modal-window.notation-lightbox-window .ribbon-title>span:first-child,
-        .modal-window.notation-lightbox-window #btnOpenNotationLightbox {
-            display: none;
+        .btn-seg {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            font-family: var(--font-ta);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .btn-seg:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-seg.active {
+            background: linear-gradient(135deg, #0284c7, #06b6d4);
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Lightbox Toolbar Header */
+        .lightbox-toolbar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .lightbox-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .lightbox-toolbar-title {
+            color: var(--gold-bright);
+            font-family: var(--font-ta);
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .lightbox-lesson-badge {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            color: #c7d2fe;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            font-family: var(--font-ta);
+            max-width: 380px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lightbox-toolbar-stepper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lightbox-toolbar-config {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .config-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .config-lbl {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            font-family: var(--font-ta);
+            white-space: nowrap;
+        }
+
+        .config-select {
+            padding: 4px 8px;
+            font-size: 0.74rem;
+            border-radius: 8px;
+        }
+
+        /* Alignment Options: Spread (Default), Center, Left */
+        /* SPREAD (Full Width Justified across 100% space) */
+        .swara-ribbon-scroll[data-align="spread"].split-lines .swara-line-scroll {
+            width: 100%;
+        }
+
+        .swara-ribbon-scroll[data-align="spread"].split-lines .swara-line-measures {
+            width: 100%;
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        .swara-ribbon-scroll[data-align="spread"].split-lines .swara-measure-block {
+            flex: 1 1 auto;
+            min-width: 0;
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: 8px;
+            box-sizing: border-box;
+        }
+
+        .swara-ribbon-scroll[data-align="spread"].split-lines .swara-node {
+            flex: 1 1 0;
+            min-width: 54px;
+            max-width: 150px;
+            box-sizing: border-box;
+        }
+
+        /* CENTER */
+        .swara-ribbon-scroll[data-align="center"].split-lines .swara-line-scroll {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .swara-ribbon-scroll[data-align="center"].split-lines .swara-line-measures {
+            width: auto;
+            margin: 0 auto;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .swara-ribbon-scroll[data-align="center"]:not(.split-lines) {
+            justify-content: center;
+        }
+
+        /* LEFT (Standard Compact) */
+        .swara-ribbon-scroll[data-align="left"].split-lines .swara-line-scroll {
+            width: 100%;
+            display: block;
+        }
+
+        .swara-ribbon-scroll[data-align="left"].split-lines .swara-line-measures {
+            width: max-content;
+            justify-content: flex-start;
+        }
+
+        /* Sizing variations */
+        .swara-ribbon-scroll[data-size="small"] .swara-node {
+            padding: 5px 4px;
+            min-height: 52px;
+        }
+
+        .swara-ribbon-scroll[data-size="small"] .swara-badge-ta {
+            font-size: 0.95rem;
+        }
+
+        .swara-ribbon-scroll[data-size="small"] .swara-west-note {
+            font-size: 0.65rem;
+        }
+
+        .swara-ribbon-scroll[data-size="small"] .swara-finger-num {
+            font-size: 0.62rem;
+            min-width: 16px;
+            height: 16px;
+        }
+
+        .swara-ribbon-scroll[data-size="large"] .swara-node {
+            padding: 12px 10px;
+            min-height: 84px;
+        }
+
+        .swara-ribbon-scroll[data-size="large"] .swara-badge-ta {
+            font-size: 1.45rem;
+        }
+
+        .swara-ribbon-scroll[data-size="large"] .swara-west-note {
+            font-size: 0.85rem;
+        }
+
+        .swara-ribbon-scroll[data-size="large"] .swara-finger-num {
+            font-size: 0.82rem;
+            min-width: 22px;
+            height: 22px;
+        }
+
+        .swara-ribbon-scroll[data-size="large"] .swara-line-label {
+            font-size: 0.85rem;
+            padding: 4px 12px;
+        }
+
+        /* Lightbox specific styling */
+        .modal-window.notation-lightbox-window {
+            width: 100%;
+            max-width: none;
+            height: 100vh;
+            height: 100dvh;
+            max-height: none;
+            border-radius: 0;
+            padding: clamp(12px, 2vw, 24px) clamp(10px, 1.5vw, 20px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-window.notation-lightbox-window .notation-lightbox-content {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .modal-window.notation-lightbox-window .swara-ribbon-scroll {
             flex: 1;
             max-height: none;
             min-height: 0;
-            align-items: flex-start;
+            width: 100%;
         }
 
         .modal-window.notation-lightbox-window .swara-ribbon-scroll.split-lines {
             align-items: stretch;
+            width: 100%;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.split-lines .swara-line-group {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll:not(.split-lines):not(.same-row-layout):not(.two-rows-layout) .swara-line-group {
+            width: auto !important;
+            flex: 0 0 auto !important;
+            box-sizing: border-box;
+            padding: 8px 12px;
+            margin: 0;
+        }
+
+        .modal-window.notation-lightbox-window .swara-line-scroll {
+            width: 100%;
         }
 
         .modal-window.notation-lightbox-window .swara-node {
-            min-width: 60px;
-            flex-basis: 60px;
-            padding: 7px 5px;
+            min-width: 58px;
+            padding: 8px 6px;
             gap: 3px;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll[data-align="spread"].split-lines .swara-node {
+            flex: 1 1 0;
+            max-width: 160px;
         }
 
         .modal-window.notation-lightbox-window .swara-badge-ta {
@@ -1091,32 +1473,296 @@
 
         .modal-window.notation-lightbox-window .swara-west-note,
         .modal-window.notation-lightbox-window .swara-finger-num {
-            font-size: 0.7rem;
-        }
-
-        #notationLightboxTitle {
-            font-size: 1.05rem;
-            line-height: 1.2;
-            margin-bottom: 8px !important;
+            font-size: 0.72rem;
         }
 
         .modal-window.notation-lightbox-window .notation-lightbox-close {
-            top: 8px;
-            right: 10px;
+            position: static;
+            font-size: 1.15rem;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .modal-window.notation-lightbox-window .notation-lightbox-close:hover {
+            background: rgba(244, 63, 94, 0.25);
+            border-color: var(--rose-accent);
+            color: #fda4af;
         }
 
         @media (max-width: 600px) {
             .modal-window.notation-lightbox-window {
-                padding: 12px 8px;
-            }
-
-            .modal-window.notation-lightbox-window .notation-ribbon-card {
-                padding: 12px 8px;
+                padding: 10px 8px;
             }
 
             .modal-window.notation-lightbox-window .swara-node {
-                min-width: 52px;
-                flex-basis: 52px;
+                min-width: 50px;
+            }
+        }
+
+        /* ================= 2 ROWS MAXIMUM LAYOUT (AROHANAM & AVAROHANAM) ================= */
+        .swara-ribbon-scroll.two-rows-layout {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+            padding: 6px 2px !important;
+            box-sizing: border-box !important;
+        }
+
+        .swara-ribbon-scroll.two-rows-layout .swara-line-group {
+            width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 6px !important;
+            padding: 8px 12px !important;
+            border: 1px solid rgba(212, 175, 55, 0.28) !important;
+            border-radius: 12px !important;
+            background: linear-gradient(135deg, rgba(12, 18, 38, 0.85), rgba(7, 11, 26, 0.95)) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+        }
+
+        .swara-ribbon-scroll.two-rows-layout .swara-line-scroll {
+            width: 100% !important;
+            min-width: 0 !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            scrollbar-width: thin !important;
+            scrollbar-color: var(--gold-bright) rgba(10, 14, 28, 0.9) !important;
+        }
+
+        .swara-ribbon-scroll.two-rows-layout .swara-line-measures {
+            width: 100% !important;
+            display: flex !important;
+            align-items: stretch !important;
+            justify-content: space-between !important;
+            gap: 6px !important;
+            box-sizing: border-box !important;
+        }
+
+        .swara-ribbon-scroll.two-rows-layout .swara-measure-block {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+            display: flex !important;
+            align-items: stretch !important;
+            justify-content: space-evenly !important;
+            gap: 3px !important;
+            padding: 4px 6px !important;
+            border: 1px dashed rgba(255, 255, 255, 0.12) !important;
+            border-radius: 8px !important;
+            background: rgba(255, 255, 255, 0.02) !important;
+            box-sizing: border-box !important;
+        }
+
+        .swara-ribbon-scroll.two-rows-layout .swara-node {
+            flex: 1 1 0 !important;
+            min-width: 44px !important;
+            max-width: 130px !important;
+            padding: 7px 4px !important;
+            box-sizing: border-box !important;
+            gap: 2px !important;
+        }
+
+        .swara-ribbon-scroll.two-rows-layout .tala-avartanam-divider {
+            font-size: 1.35rem !important;
+            font-weight: 900 !important;
+            color: var(--gold-bright) !important;
+            padding: 0 10px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            user-select: none !important;
+            letter-spacing: -2px !important;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.7) !important;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.two-rows-layout {
+            gap: 16px !important;
+            padding: 10px 4px !important;
+            overflow-y: hidden !important;
+            justify-content: center !important;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.two-rows-layout .swara-line-group {
+            flex: 0 0 auto !important;
+            padding: 12px 16px !important;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.two-rows-layout .swara-node {
+            padding: 8px 5px !important;
+            max-width: 140px !important;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.two-rows-layout .swara-badge-ta {
+            font-size: 1.3rem !important;
+        }
+
+        /* ================= SAME ROW (AROHANAM & AVAROHANAM SIDE-BY-SIDE) ================= */
+        .swara-ribbon-scroll.same-row-layout {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 14px !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            padding: 8px 4px 14px 4px !important;
+            box-sizing: border-box !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-line-group {
+            width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 6px !important;
+            padding: 8px 10px !important;
+            border: 1px solid rgba(212, 175, 55, 0.28) !important;
+            border-radius: 12px !important;
+            background: linear-gradient(135deg, rgba(12, 18, 38, 0.85), rgba(7, 11, 26, 0.95)) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+            overflow: hidden !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-line-group:only-child,
+        .swara-ribbon-scroll.same-row-layout .swara-line-group:last-child:nth-child(odd) {
+            grid-column: 1 / -1 !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-line-scroll {
+            width: 100% !important;
+            min-width: 0 !important;
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-line-measures {
+            width: 100% !important;
+            display: flex !important;
+            align-items: stretch !important;
+            justify-content: space-between !important;
+            gap: 4px !important;
+            box-sizing: border-box !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-measure-block {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+            display: flex !important;
+            align-items: stretch !important;
+            justify-content: space-evenly !important;
+            gap: 3px !important;
+            padding: 4px 4px !important;
+            border: 1px dashed rgba(255, 255, 255, 0.12) !important;
+            border-radius: 8px !important;
+            background: rgba(255, 255, 255, 0.02) !important;
+            box-sizing: border-box !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-node {
+            flex: 1 1 0 !important;
+            min-width: 0 !important;
+            max-width: 95px !important;
+            padding: 6px 2px !important;
+            box-sizing: border-box !important;
+            gap: 2px !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-badge-ta {
+            font-size: 1.15rem !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-west-note {
+            font-size: 0.65rem !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout .swara-finger-num {
+            font-size: 0.62rem !important;
+        }
+
+        /* Lightbox specific overrides when in same_row layout */
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.same-row-layout {
+            padding: 10px 4px !important;
+            gap: 16px !important;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.same-row-layout .swara-node {
+            min-width: 0 !important;
+            max-width: 110px !important;
+            padding: 8px 4px !important;
+        }
+
+        .modal-window.notation-lightbox-window .swara-ribbon-scroll.same-row-layout .swara-badge-ta {
+            font-size: 1.25rem !important;
+        }
+
+        /* Continuous mode styling across full width */
+        .swara-ribbon-scroll.continuous-layout,
+        .swara-ribbon-scroll:not(.split-lines):not(.same-row-layout):not(.two-rows-layout) {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+            width: 100% !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+        }
+
+        .swara-ribbon-scroll.continuous-layout .swara-line-group,
+        .swara-ribbon-scroll:not(.split-lines):not(.same-row-layout):not(.two-rows-layout) .swara-line-group {
+            width: auto !important;
+            flex: 0 0 auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 6px !important;
+        }
+
+        .swara-ribbon-scroll.continuous-layout .swara-line-scroll,
+        .swara-ribbon-scroll:not(.split-lines):not(.same-row-layout):not(.two-rows-layout) .swara-line-scroll {
+            width: auto !important;
+            overflow: visible !important;
+        }
+
+        .swara-ribbon-scroll.continuous-layout .swara-line-measures,
+        .swara-ribbon-scroll:not(.split-lines):not(.same-row-layout):not(.two-rows-layout) .swara-line-measures {
+            width: auto !important;
+        }
+
+        /* When alignment is Center inside same_row */
+        .swara-ribbon-scroll.same-row-layout[data-align="center"] .swara-line-scroll {
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        .swara-ribbon-scroll.same-row-layout[data-align="center"] .swara-line-measures {
+            width: auto !important;
+            justify-content: center !important;
+        }
+
+        /* When alignment is Left inside same_row */
+        .swara-ribbon-scroll.same-row-layout[data-align="left"] .swara-line-measures {
+            width: max-content !important;
+            justify-content: flex-start !important;
+        }
+
+        @media (max-width: 768px) {
+            .swara-ribbon-scroll.same-row-layout {
+                grid-template-columns: 1fr !important;
             }
         }
 
@@ -2791,7 +3437,7 @@
                                     பாடம்)</option>
                                 <option value="dhatu">4. தாட்டு வரிசை (Dhatu Varisai 1-3 • ஸ்வர சாஹித்யம் • பாடம் 4 •
                                     பால பாடம்)</option>
-                                <option value="sthayi">4. ஸ்தாயி பயிற்சி (Sthayi Practice)</option>
+                                
                                 <option value="alankaram">5. சப்த தாள அலங்காரம் (Sapta Tala 1-7)</option>
                                 <option value="geetham">6. கீதங்கள் (Geethams with Sahityam)</option>
                                 <option value="varnam">7. வர்ணங்கள் (Varnams & Pallavi Study)</option>
@@ -2801,11 +3447,42 @@
                         </div>
 
                         <div class="select-group" style="flex: 2;">
-                            <label class="select-label">🎵 பாடம் / கீர்த்தனை (Lesson):</label>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                                <label class="select-label" style="margin: 0;">🎵 பாடம் / கீர்த்தனை (Lesson):</label>
+                                <div style="display: flex; gap: 6px;">
+                                    <button type="button" class="btn-mini-step" onclick="goToPrevLesson()" title="முந்தைய பாடம் (Shift + ←)">⏮️ முந்தையது</button>
+                                    <button type="button" class="btn-mini-step btn-primary-step" onclick="goToNextLesson()" title="அடுத்த பாடம் (Shift + →)">அடுத்த பாடம் ⏭️</button>
+                                </div>
+                            </div>
                             <select id="lessonSelector" class="custom-select" aria-label="பாடம் (Lesson)"
                                 onchange="onLessonSelect(this.value)">
                                 <!-- Dynamically populated -->
                             </select>
+                        </div>
+                    </div>
+
+                    <!-- Instant Lesson Status Feedback Banner with Next / Prev Stepper -->
+                    <div id="lessonLoadedBanner" class="lesson-load-banner">
+                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; flex: 1;">
+                            <button class="btn-ctrl btn-nav-lesson" onclick="goToPrevLesson()" title="முந்தைய பாடம் (Shift + ←)">
+                                ⏮️ முந்தைய பாடம்
+                            </button>
+                            <span style="font-size: 1.25rem;">🎵</span>
+                            <div>
+                                <span style="font-size: 0.72rem; color: var(--gold-bright); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">தற்போது பயிலும் பாடம் (Active Lesson):</span>
+                                <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
+                                    <span id="bannerLessonTitle" style="font-weight: 700; color: #fff; font-size: 0.95rem; font-family: var(--font-ta);">1. சரளி வரிசை 1 (ச ரி க ம ப த நி ஸ்)</span>
+                                    <span id="bannerLessonDetails" style="color: var(--text-muted); font-size: 0.78rem;">மாயாமாளவகௌளை • ஆதி தாளம் • 16 ஸ்வரங்கள்</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <button class="btn-ctrl btn-primary" onclick="togglePlayPause()" style="padding: 7px 18px; font-size: 0.84rem;">
+                                ▶️ Play தொடங்கு
+                            </button>
+                            <button class="btn-ctrl btn-primary btn-nav-lesson" onclick="goToNextLesson()" title="அடுத்த பாடம் (Shift + →)">
+                                அடுத்த பாடம் ⏭️
+                            </button>
                         </div>
                     </div>
 
@@ -2866,12 +3543,14 @@
 
                         <!-- Main Transport Buttons -->
                         <div class="transport-group">
-                            <button class="btn-ctrl" onclick="stepBackward()" title="Previous Swara">⏮️ Prev</button>
+                            <button class="btn-ctrl" onclick="goToPrevLesson()" title="முந்தைய பாடம் (Previous Lesson)">⏮️ பாடம்</button>
+                            <button class="btn-ctrl" onclick="stepBackward()" title="முந்தைய ஸ்வரம் (Previous Swara)">◀ ஸ்வரம்</button>
                             <button id="btnPlayPause" class="btn-ctrl btn-play-main" onclick="togglePlayPause()"
                                 title="Play / Pause">
                                 <span id="playIcon">▶️</span> <span id="playText">Play</span>
                             </button>
-                            <button class="btn-ctrl" onclick="stepForward()" title="Next Swara">Next ⏭️</button>
+                            <button class="btn-ctrl" onclick="stepForward()" title="அடுத்த ஸ்வரம் (Next Swara)">ஸ்வரம் ▶</button>
+                            <button class="btn-ctrl btn-primary" onclick="goToNextLesson()" title="அடுத்த பாடம் (Next Lesson)">பாடம் ⏭️</button>
                             <button class="btn-ctrl" onclick="stopPlayback()" title="Reset">⏹️ Reset</button>
                             <button id="btnLoop" class="btn-ctrl" onclick="toggleLoop()" title="Loop">🔁 Loop</button>
                             <button class="btn-ctrl" onclick="openLyricsModal()" title="Lyrics">📜 Lyrics</button>
@@ -2963,12 +3642,23 @@
                         <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                             <div class="ribbon-badge" id="lessonStepCounter">ஸ்வரம் 1 / 16</div>
                             <label for="ribbonAlignment"
-                                style="color: var(--text-muted); font-size: 0.74rem;">அமைப்பு</label>
+                                style="color: var(--text-muted); font-size: 0.74rem;">அமைப்பு:</label>
+                            <div class="segmented-ctrl" id="mainRibbonLayoutGroup" role="radiogroup" aria-label="Notation Layout">
+                                <button type="button" class="btn-seg active" data-layout-btn="two_rows" onclick="setRibbonAlignment('two_rows')" title="அதிகபட்சம் 2 வரிகள்: ஏறுவரிசை & இறங்குவரிசை (2 Rows Max)">☲ 2 வரிகள் (2 Rows)</button>
+                                <button type="button" class="btn-seg" data-layout-btn="split" onclick="setRibbonAlignment('split')" title="தனித்தனி (Stacked)">☰ தனித்தனி</button>
+                                <button type="button" class="btn-seg" data-layout-btn="continuous" onclick="setRibbonAlignment('continuous')" title="தொடர் (Continuous)">➡️ தொடர்</button>
+                            </div>
                             <select class="btn-ctrl" id="ribbonAlignment" aria-label="Notation வரிசை அமைப்பு"
-                                onchange="setRibbonAlignment(this.value)" style="padding: 5px 8px; font-size: 0.74rem;">
-                                <option value="split">ஏற்றம் / இறக்கம் தனித்தனி வரிசை</option>
-                                <option value="continuous">ஒரே கிடைமட்ட வரிசை</option>
+                                onchange="setRibbonAlignment(this.value)" style="display:none;">
+                                <option value="two_rows">2 வரிகள் (2 Rows Max)</option>
+                                <option value="split">தனித்தனி வரிசை (Stacked)</option>
+                                <option value="continuous">தொடர் வரிசை (Continuous)</option>
                             </select>
+                            <div class="segmented-ctrl" id="mainRibbonAlignGroup" role="radiogroup" aria-label="Notation Alignment">
+                                <button type="button" class="btn-seg" data-align-btn="left" onclick="setRibbonJustify('left')" title="இடது சீரமைப்பு (Left)">◀ இடது</button>
+                                <button type="button" class="btn-seg" data-align-btn="center" onclick="setRibbonJustify('center')" title="மையம் (Center)">⏺ மையம்</button>
+                                <button type="button" class="btn-seg active" data-align-btn="spread" onclick="setRibbonJustify('spread')" title="முழு அகலம் / சம இடைவெளி (Full Spread)">↔ சம இடைவெளி</button>
+                            </div>
                             <button class="btn-ctrl" id="btnOpenNotationLightbox" type="button"
                                 onclick="openNotationLightbox()" aria-label="Notation-ஐ பெரிதாகத் திற"
                                 title="Notation-ஐ பெரிதாகப் பார்க்க">⛶ பெரிதாக்கு</button>
@@ -3743,12 +4433,89 @@
         aria-hidden="true">
         <div class="modal-window notation-lightbox-window" role="dialog" aria-modal="true"
             aria-labelledby="notationLightboxTitle" onclick="event.stopPropagation()">
-            <button class="modal-close-btn notation-lightbox-close" type="button" onclick="closeNotationLightbox()"
-                aria-label="மூடு">✕</button>
-            <h2 id="notationLightboxTitle"
-                style="color: var(--gold-bright); font-family: var(--font-ta); margin: 0 42px 14px 0;">📜 ஸ்வர வரிசை &
-                விரல் எண்கள்</h2>
+            <!-- Fullscreen Lightbox Toolbar Header -->
+            <div class="lightbox-toolbar-header">
+                <div class="lightbox-toolbar-left">
+                    <span class="lightbox-toolbar-title" id="notationLightboxTitle">📜 ஸ்வர வரிசை & விரல் எண்கள்</span>
+                    <span class="lightbox-lesson-badge" id="notationLightboxLessonBadge">பாடம் 1</span>
+                </div>
+
+                <!-- Stepper & Play buttons in Lightbox -->
+                <div class="lightbox-toolbar-stepper" style="display: flex; align-items: center; gap: 8px;">
+                    <button class="btn-ctrl btn-mini-step" type="button" onclick="goToPrevLesson()" title="முந்தைய பாடம் (PageUp / Shift+Left)">⏮️ முந்தையது</button>
+                    <button class="btn-ctrl btn-play-main" type="button" id="lightboxBtnPlay" onclick="togglePlayPause()" title="இயக்கு / நிறுத்து (Spacebar)" style="padding: 6px 18px !important; font-size: 0.88rem !important; font-weight: 800 !important; background: linear-gradient(135deg, #10b981, #059669) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.3) !important; box-shadow: 0 0 15px rgba(16, 185, 129, 0.45) !important;">
+                        <span id="lightboxPlayIcon">▶️</span> <span id="lightboxPlayText">Play</span>
+                    </button>
+                    <button class="btn-ctrl btn-mini-step" type="button" onclick="goToNextLesson()" title="அடுத்த பாடம் (PageDown / Shift+Right)">அடுத்த பாடம் ⏭️</button>
+                </div>
+
+                <!-- Alignment & Layout Controls in Lightbox -->
+                <div class="lightbox-toolbar-config">
+                    <!-- Layout segmented control + fallback select -->
+                    <div class="config-group">
+                        <span class="config-lbl">வரிசை அமைப்பு:</span>
+                        <div class="segmented-ctrl" id="notationLightboxLayoutGroup" role="radiogroup" aria-label="Notation Layout">
+                            <button type="button" class="btn-seg active" data-layout-btn="two_rows" onclick="setRibbonAlignment('two_rows')" title="அதிகபட்சம் 2 வரிகள்: ஏறுவரிசை & இறங்குவரிசை (Maximum 2 Rows: Arohanam & Avarohanam)">☲ 2 வரிகள் (2 Rows Max)</button>
+                            <button type="button" class="btn-seg" data-layout-btn="split" onclick="setRibbonAlignment('split')" title="அனைத்து வரிகளும் தனித்தனியாக (Stacked Lines)">☰ தனித்தனி</button>
+                            <button type="button" class="btn-seg" data-layout-btn="continuous" onclick="setRibbonAlignment('continuous')" title="தொடர் கிடைமட்ட வரிசை (Continuous)">➡️ தொடர்</button>
+                        </div>
+                        <select class="btn-ctrl config-select" id="notationLightboxLayout" onchange="setRibbonAlignment(this.value)" style="display:none;" aria-label="வரிசை அமைப்பு தேர்வு">
+                            <option value="two_rows">2 வரிகள் (2 Rows Max)</option>
+                            <option value="split">தனித்தனி வரிசை (Stacked)</option>
+                            <option value="continuous">தொடர் வரிசை (Continuous)</option>
+                        </select>
+                    </div>
+
+                    <!-- Alignment Segmented Control -->
+                    <div class="config-group">
+                        <span class="config-lbl">சீரமைப்பு:</span>
+                        <div class="segmented-ctrl" id="notationLightboxAlignGroup" role="radiogroup" aria-label="Notation Alignment">
+                            <button type="button" class="btn-seg" data-align-btn="left" onclick="setRibbonJustify('left')" title="இடது சீரமைப்பு (Left)">◀ இடது</button>
+                            <button type="button" class="btn-seg" data-align-btn="center" onclick="setRibbonJustify('center')" title="மையம் (Center)">⏺ மையம்</button>
+                            <button type="button" class="btn-seg active" data-align-btn="spread" onclick="setRibbonJustify('spread')" title="முழு அகலம் / சம இடைவெளி (Full Spread across width)">↔ சம இடைவெளி</button>
+                        </div>
+                    </div>
+
+                    <!-- Size Zoom -->
+                    <div class="config-group">
+                        <span class="config-lbl">அளவு:</span>
+                        <div class="segmented-ctrl" id="notationLightboxSizeGroup" role="radiogroup" aria-label="Notation Size">
+                            <button type="button" class="btn-seg" data-size-btn="small" onclick="setRibbonSize('small')" title="சிறியது">A-</button>
+                            <button type="button" class="btn-seg active" data-size-btn="medium" onclick="setRibbonSize('medium')" title="இயல்பு">A</button>
+                            <button type="button" class="btn-seg" data-size-btn="large" onclick="setRibbonSize('large')" title="பெரியது">A+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="modal-close-btn notation-lightbox-close" type="button" onclick="closeNotationLightbox()"
+                    aria-label="மூடு" title="மூடு (Esc)">✕</button>
+            </div>
+
             <div id="notationLightboxContent" class="notation-lightbox-content"></div>
+            <div id="notationLightboxFooter" class="notation-lightbox-footer" style="flex-shrink: 0; margin-top: 10px; width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- Image / Diagram Lightbox Modal -->
+    <div class="modal-overlay image-lightbox-overlay" id="imageLightbox" onclick="closeImageLightbox(event)"
+        aria-hidden="true">
+        <div class="modal-window image-lightbox-window" role="dialog" aria-modal="true"
+            aria-labelledby="imageLightboxTitle" onclick="event.stopPropagation()">
+            <button class="modal-close-btn" type="button" onclick="closeImageLightbox()" aria-label="மூடு">✕</button>
+            <h2 id="imageLightboxTitle"
+                style="color: var(--gold-bright); font-family: var(--font-ta); margin: 0 42px 14px 0; font-size: 1.15rem;">
+                வரைபடம் — முழுத்திரை</h2>
+            <div class="image-lightbox-body">
+                <img id="imageLightboxImg" src="" alt="வரைபடம்" />
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 8px;">
+                <span id="imageLightboxDesc"
+                    style="color: var(--text-muted); font-size: 0.82rem; font-family: var(--font-ta);">முழுத் தெளிவுடன் கூடிய வரைபடம் (HD Vector SVG)</span>
+                <a id="imageLightboxDownload" href="#" download class="btn-ctrl btn-primary"
+                    style="padding: 6px 16px; font-size: 0.8rem; text-decoration: none;">
+                    ⬇️ SVG வரைபடத்தைப் பதிவிறக்கு (Download)
+                </a>
+            </div>
         </div>
     </div>
 
@@ -3947,7 +4714,9 @@
         // App State
         let currentView = 'studio';
         let currentLessonKey = 's1';
-        let ribbonAlignment = 'split';
+        let ribbonAlignment = 'two_rows';
+        let ribbonJustify = 'spread'; // 'left', 'center', 'spread'
+        let ribbonSize = 'medium';   // 'small', 'medium', 'large'
         let currentStepIndex = 0;
         let isPlaying = false;
         let playTimer = null;
@@ -4042,83 +4811,6 @@
             }
         }
 
-        function openNotationLightbox() {
-            const ribbon = document.querySelector('#notationRibbonHome .notation-ribbon-card');
-            const lightboxContent = document.getElementById('notationLightboxContent');
-            const lightbox = document.getElementById('notationLightbox');
-            if (!ribbon || !lightboxContent || !lightbox) return;
-
-            moveLessonControlsInto(lightboxContent);
-            lightboxContent.appendChild(ribbon);
-            lightbox.classList.add('active');
-            lightbox.setAttribute('aria-hidden', 'false');
-            lightbox.querySelector('.notation-lightbox-close').focus();
-        }
-
-        function closeNotationLightbox(event) {
-            const lightbox = document.getElementById('notationLightbox');
-            if (!lightbox || !lightbox.classList.contains('active')) return;
-            if (event && event.target !== lightbox && !event.target.closest('.notation-lightbox-close')) return;
-
-            if (isPlaying) stopPlayback();
-            const ribbon = lightbox.querySelector('.notation-ribbon-card');
-            if (ribbon) document.getElementById('notationRibbonHome').appendChild(ribbon);
-            restoreLessonControls(lightbox);
-            lightbox.classList.remove('active');
-            lightbox.setAttribute('aria-hidden', 'true');
-            document.getElementById('btnOpenNotationLightbox').focus();
-        }
-
-        // Move the lesson picker + play strip into a lightbox and back
-        function moveLessonControlsInto(container) {
-            const picker = document.getElementById('lessonPickerRow');
-            const strip = document.querySelector('.playback-strip');
-            if (picker) container.appendChild(picker);
-            if (strip) container.appendChild(strip);
-        }
-        function restoreLessonControls(lightbox) {
-            const picker = lightbox.querySelector('#lessonPickerRow');
-            if (picker) document.getElementById('lessonPickerAnchor').after(picker);
-            const strip = lightbox.querySelector('.playback-strip');
-            if (strip) document.getElementById('playbackStripAnchor').after(strip);
-        }
-
-        function openKeyboardLightbox() {
-            const dock = document.querySelector('.keyboard-dock-card');
-            const content = document.getElementById('keyboardLightboxContent');
-            const lightbox = document.getElementById('keyboardLightbox');
-            if (!dock || !content || !lightbox) return;
-
-            moveLessonControlsInto(content);
-            content.appendChild(dock);
-            lightbox.classList.add('active');
-            lightbox.setAttribute('aria-hidden', 'false');
-            lightbox.querySelector('.keyboard-lightbox-close').focus();
-            requestAnimationFrame(() => {
-                const area = document.getElementById('pianoScrollArea');
-                const c4 = document.getElementById('key_midi_60');
-                if (!area || !c4) return;
-                const a = area.getBoundingClientRect();
-                const k = c4.getBoundingClientRect();
-                area.scrollLeft += (k.left + k.width / 2) - (a.left + a.width / 2);
-            });
-        }
-
-        function closeKeyboardLightbox(event) {
-            const lightbox = document.getElementById('keyboardLightbox');
-            if (!lightbox || !lightbox.classList.contains('active')) return;
-            if (event && event.target !== lightbox && !event.target.closest('.keyboard-lightbox-close')) return;
-
-            if (isPlaying) stopPlayback();
-
-            const dock = lightbox.querySelector('.keyboard-dock-card');
-            if (dock) document.getElementById('keyboardDockAnchor').after(dock);
-            restoreLessonControls(lightbox);
-            lightbox.classList.remove('active');
-            lightbox.setAttribute('aria-hidden', 'true');
-            document.getElementById('btnOpenKeyboardLightbox').focus();
-        }
-
         // Switch Top Level Views
         function switchView(viewName) {
             currentView = viewName;
@@ -4174,14 +4866,18 @@
             const c4Key = document.getElementById('key_midi_60');
             if (scrollContainer && c4Key) {
                 const targetLeft = c4Key.offsetLeft - (scrollContainer.clientWidth / 2) + (c4Key.offsetWidth / 2);
-                scrollContainer.scrollTo({
-                    left: Math.max(0, targetLeft),
-                    behavior: smooth ? 'smooth' : 'auto'
-                });
+                if (smooth) {
+                    scrollContainer.scrollTo({
+                        left: Math.max(0, targetLeft),
+                        behavior: 'smooth'
+                    });
+                } else {
+                    scrollContainer.scrollLeft = Math.max(0, targetLeft);
+                }
             }
         }
 
-        function scrollKeyIntoViewIfNeeded(midi) {
+        function scrollKeyIntoViewIfNeeded(midi, smooth = false) {
             const keyEl = document.getElementById(`key_midi_${midi}`);
             const scrollContainer = document.getElementById('pianoScrollArea');
             if (!keyEl || !scrollContainer) return;
@@ -4191,15 +4887,25 @@
             const keyRight = keyLeft + keyEl.offsetWidth;
 
             if (keyLeft < containerLeft + 30) {
-                scrollContainer.scrollTo({
-                    left: Math.max(0, keyLeft - 80),
-                    behavior: 'smooth'
-                });
+                const target = Math.max(0, keyLeft - 80);
+                if (smooth) {
+                    scrollContainer.scrollTo({
+                        left: target,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    scrollContainer.scrollLeft = target;
+                }
             } else if (keyRight > containerRight - 30) {
-                scrollContainer.scrollTo({
-                    left: keyRight - scrollContainer.clientWidth + 80,
-                    behavior: 'smooth'
-                });
+                const target = keyRight - scrollContainer.clientWidth + 80;
+                if (smooth) {
+                    scrollContainer.scrollTo({
+                        left: target,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    scrollContainer.scrollLeft = target;
+                }
             }
         }
 
@@ -4318,9 +5024,20 @@
             renderJantaiKeyFingerings();
         }
 
+        let jantaiRanges = [];
+        let jantaiMidiSet = new Set();
+        let lastJantaiBadgeKey = null;
+
         function renderJantaiKeyFingerings() {
+            if (lastJantaiBadgeKey) {
+                const badge = lastJantaiBadgeKey.querySelector('.key-repeat-fingering');
+                if (badge) badge.remove();
+                lastJantaiBadgeKey = null;
+            }
             document.querySelectorAll('.key-repeat-fingering').forEach(badge => badge.remove());
-            document.querySelectorAll('.key-white, .key-black').forEach(key => delete key.dataset.jantaiPairs);
+            jantaiRanges = [];
+            jantaiMidiSet.clear();
+
             const lesson = allLessons[currentLessonKey];
             const hint = document.getElementById('jantaKeyHint');
             const isJantaiLesson = lesson?.cat === 'janta';
@@ -4328,33 +5045,29 @@
             if (!isJantaiLesson) return;
 
             // A ஜண்டை group = the same swara repeated back to back inside one line
-            // (pair: ss -> 1 2, triple: sss -> 1 2 3). Karvai (,) and line ends break a group.
-            const repeatedPairs = new Map();
             for (let index = 0; index < flatSequence.length;) {
                 const item = flatSequence[index];
                 let end = index + 1;
                 while (item.midi !== null && end < flatSequence.length &&
                     flatSequence[end].midi === item.midi && flatSequence[end].lineIdx === item.lineIdx) end++;
-                if (end - index >= 2) {
-                    if (!repeatedPairs.has(item.midi)) repeatedPairs.set(item.midi, []);
-                    repeatedPairs.get(item.midi).push({ first: index, last: end - 1 });
+                if (end - index >= 2 && item.midi !== null) {
+                    jantaiRanges.push({ first: index, last: end - 1, midi: item.midi });
+                    jantaiMidiSet.add(item.midi);
                 }
                 index = end;
             }
-
-            repeatedPairs.forEach((pairs, midi) => {
-                const key = document.getElementById(`key_midi_${midi}`);
-                if (!key) return;
-                key.dataset.jantaiPairs = JSON.stringify(pairs);
-            });
         }
 
         function updateJantaiKeyFingering(midi, activeNumber) {
-            document.querySelectorAll('.key-repeat-fingering').forEach(number => number.remove());
-            if (!activeNumber) return;
+            if (lastJantaiBadgeKey) {
+                const badge = lastJantaiBadgeKey.querySelector('.key-repeat-fingering');
+                if (badge) badge.remove();
+                lastJantaiBadgeKey = null;
+            }
+            if (!activeNumber || midi === null) return;
 
             const key = document.getElementById(`key_midi_${midi}`);
-            if (!key || !key.dataset.jantaiPairs) return;
+            if (!key) return;
 
             const number = document.createElement('span');
             number.className = `key-repeat-fingering number-${activeNumber === 1 ? 'one' : 'two'}`;
@@ -4362,19 +5075,20 @@
             number.setAttribute('aria-label', `ஜண்டை விரல் ${activeNumber}`);
             number.title = `இந்த விசையை ${activeNumber}-வது முறை அழுத்தவும்`;
             key.appendChild(number);
+            lastJantaiBadgeKey = key;
         }
 
         function updateJantaiPlaybackFingering(stepIndex) {
             let activeMidi = null;
             let activeNumber = null;
-            document.querySelectorAll('[data-jantai-pairs]').forEach(key => {
-                const pairs = JSON.parse(key.dataset.jantaiPairs || '[]');
-                const pair = pairs.find(item => stepIndex >= item.first && stepIndex <= item.last);
-                if (pair) {
-                    activeMidi = key.dataset.midi;
+            for (let i = 0; i < jantaiRanges.length; i++) {
+                const pair = jantaiRanges[i];
+                if (stepIndex >= pair.first && stepIndex <= pair.last) {
+                    activeMidi = pair.midi;
                     activeNumber = stepIndex - pair.first + 1;
+                    break;
                 }
-            });
+            }
 
             if (activeMidi !== null) updateJantaiKeyFingering(Number(activeMidi), activeNumber);
             else updateJantaiKeyFingering(null, null);
@@ -4389,8 +5103,7 @@
             playMidiNote(midi, 0.5, swaraInfo.code);
             highlightKeyVisual(midi, true);
             if (event.type === 'pointerdown' && currentLessonKey.startsWith('j')) {
-                const key = document.getElementById(`key_midi_${midi}`);
-                if (key?.dataset.jantaiPairs) {
+                if (jantaiMidiSet.has(midi)) {
                     manualJantaiTapCount = lastManualJantaiMidi === midi ? (manualJantaiTapCount % 2) + 1 : 1;
                     lastManualJantaiMidi = midi;
                     updateJantaiKeyFingering(midi, manualJantaiTapCount);
@@ -5156,18 +5869,22 @@
         // Lesson & Category Selector Logic
         function populateLessonDropdown(filterCat = 'all') {
             const selector = document.getElementById('lessonSelector');
-            selector.innerHTML = '';
+            if (!selector) return;
+            const fragment = document.createDocumentFragment();
 
             for (let key in allLessons) {
                 const item = allLessons[key];
                 if (filterCat === 'all' || item.cat === filterCat) {
                     const opt = document.createElement('option');
                     opt.value = key;
-                    opt.textContent = `${item.title} • [${item.tala.split(' ')[0]}]`;
+                    const talaFirst = item.tala ? item.tala.split(' ')[0] : '';
+                    opt.textContent = `${item.title} • [${talaFirst}]`;
                     if (key === currentLessonKey) opt.selected = true;
-                    selector.appendChild(opt);
+                    fragment.appendChild(opt);
                 }
             }
+            selector.innerHTML = '';
+            selector.appendChild(fragment);
         }
 
         function onCategoryChange() {
@@ -5184,13 +5901,26 @@
             if (!lesson) return;
 
             const categorySelector = document.getElementById('catSelector');
-            if (categorySelector.value !== lesson.cat) {
-                categorySelector.value = lesson.cat;
-                populateLessonDropdown(lesson.cat);
-                document.getElementById('lessonSelector').value = lessonKey;
+            const lessonSelector = document.getElementById('lessonSelector');
+
+            if (categorySelector && lessonSelector) {
+                const hasOption = !!lessonSelector.querySelector(`option[value="${lessonKey}"]`);
+                if (!hasOption) {
+                    categorySelector.value = lesson.cat;
+                    populateLessonDropdown(lesson.cat);
+                } else if (categorySelector.value !== 'all' && categorySelector.value !== lesson.cat) {
+                    categorySelector.value = lesson.cat;
+                }
+                if (lessonSelector.value !== lessonKey) {
+                    lessonSelector.value = lessonKey;
+                }
+                lessonSelector.classList.remove('select-highlight');
+                void lessonSelector.offsetWidth;
+                lessonSelector.classList.add('select-highlight');
+                setTimeout(() => lessonSelector.classList.remove('select-highlight'), 600);
             }
 
-            stopPlayback();
+            pausePlayback();
             currentLessonKey = lessonKey;
             currentStepIndex = 0;
             lastManualJantaiMidi = null;
@@ -5198,8 +5928,36 @@
             updateKaalamButtonLabels();
             buildFlatSequence();
             renderTimelineRibbon();
-            updateStepDisplay(false); // selecting a lesson only shows it; sound starts with Play
-            setTimeout(() => centerMiddleC(true), 120);
+            updateStepDisplay(false);
+
+            // Update instant feedback banner
+            const banner = document.getElementById('lessonLoadedBanner');
+            if (banner) {
+                const titleEl = document.getElementById('bannerLessonTitle');
+                const detailsEl = document.getElementById('bannerLessonDetails');
+                if (titleEl) titleEl.textContent = lesson.title;
+                if (detailsEl) detailsEl.textContent = `${lesson.raga} • ${lesson.tala} • ${flatSequence.length} ஸ்வரங்கள்`;
+                banner.classList.remove('banner-pulse');
+                void banner.offsetWidth;
+                banner.classList.add('banner-pulse');
+            }
+
+            const notationBadge = document.getElementById('notationLightboxLessonBadge');
+            if (notationBadge) {
+                notationBadge.textContent = `${lesson.id || ''}: ${lesson.title || ''}`;
+            }
+
+            resetRibbonScroll();
+
+            // Audition preview note so user immediately hears that lesson was switched
+            try {
+                if (flatSequence.length > 0 && !flatSequence[0].isRest) {
+                    initAudio();
+                    if (audioCtx && audioCtx.state === 'running') {
+                        playMidiNote(flatSequence[0].midi, 0.35, flatSequence[0].token);
+                    }
+                }
+            } catch (e) { }
         }
 
         // Build Flat Sequence for Playback
@@ -5237,7 +5995,17 @@
 
             lesson.lines.forEach((line, lineIdx) => {
                 let noteInLine = 0;
-                const sahityas = line.sahityam ? line.sahityam.flat() : [];
+                let sahityas = [];
+                if (line.sahityam && Array.isArray(line.sahityam)) {
+                    for (let sI = 0; sI < line.sahityam.length; sI++) {
+                        const sPart = line.sahityam[sI];
+                        if (Array.isArray(sPart)) {
+                            for (let pI = 0; pI < sPart.length; pI++) sahityas.push(sPart[pI]);
+                        } else if (sPart !== undefined && sPart !== null) {
+                            sahityas.push(sPart);
+                        }
+                    }
+                }
 
                 line.measures.forEach((meas, measIdx) => {
                     meas.forEach((token) => {
@@ -5359,44 +6127,156 @@
             return lineTitle || `பாகம் ${lineIdx + 1}`;
         }
 
+        function getLessonSplitIndex(lesson) {
+            if (!lesson || !lesson.lines || lesson.lines.length <= 1) return 1;
+            const lines = lesson.lines;
+            for (let i = 1; i < lines.length; i++) {
+                const title = (lines[i].title || '').toLowerCase();
+                if (title.includes('avarohanam') || title.includes('descending') ||
+                    title.includes('இறங்குவரிசை') || title.includes('இறங்கு') ||
+                    title.includes('அவரோகணம்')) {
+                    return i;
+                }
+            }
+            return Math.ceil(lines.length / 2);
+        }
+
+        function getTwoPartsPerRowGroup(item, lesson) {
+            if (!lesson || !lesson.lines || lesson.lines.length <= 1) return 0;
+            const splitIdx = getLessonSplitIndex(lesson);
+            // STRICT MAXIMUM 2 ROWS (rendu row maximum):
+            // Row 0 = Arohanam / First Half (lines 0 .. splitIdx - 1)
+            // Row 1 = Avarohanam / Second Half (lines splitIdx .. totalLines - 1)
+            // Mathematically guaranteed: ONLY returns 0 or 1, NEVER 2 or more.
+            return item.lineIdx < splitIdx ? 0 : 1;
+        }
+
+        function getTwoPartsRowLabel(groupIdx, lesson) {
+            if (!lesson || !lesson.lines) return `வரிசை ${groupIdx + 1}`;
+            if (lesson.lines.length <= 1) {
+                return '🎵 முழுப் பாடல் வரிசை · Full Lesson Flow';
+            }
+            return groupIdx === 0 ? '⬆️ ஏறுவரிசை · Arohanam' : '⬇️ இறங்குவரிசை · Avarohanam';
+        }
+
+        function resetRibbonScroll() {
+            const ribbon = document.getElementById('swaraRibbon');
+            if (!ribbon) return;
+            ribbon.scrollLeft = 0;
+            ribbon.querySelectorAll('.swara-line-scroll').forEach(s => { s.scrollLeft = 0; });
+        }
+
         function setRibbonAlignment(alignment) {
-            if (alignment !== 'split' && alignment !== 'continuous') return;
+            if (alignment === 'same_row' || !['two_rows', 'split', 'continuous'].includes(alignment)) {
+                alignment = 'two_rows';
+            }
 
             ribbonAlignment = alignment;
             const ribbon = document.getElementById('swaraRibbon');
-            if (ribbon) ribbon.classList.toggle('split-lines', alignment === 'split');
+            if (ribbon) {
+                ribbon.classList.toggle('two-rows-layout', alignment === 'two_rows');
+                ribbon.classList.toggle('split-lines', alignment === 'split');
+                ribbon.classList.toggle('continuous-layout', alignment === 'continuous');
+                ribbon.dataset.layout = alignment;
+                resetRibbonScroll();
+            }
+
+            const s1 = document.getElementById('ribbonAlignment');
+            if (s1 && s1.value !== alignment) s1.value = alignment;
+            const s2 = document.getElementById('notationLightboxLayout');
+            if (s2 && s2.value !== alignment) s2.value = alignment;
+
+            updateAlignmentButtonsUI();
+
+            try { localStorage.setItem('carnatic_ribbon_alignment', alignment); } catch (e) { }
+
+            // Re-render ribbon so layout structure updates immediately
+            renderTimelineRibbon();
+        }
+
+        function setRibbonJustify(justify) {
+            if (!['left', 'center', 'spread'].includes(justify)) justify = 'spread';
+            ribbonJustify = justify;
+            const ribbon = document.getElementById('swaraRibbon');
+            if (ribbon) ribbon.dataset.align = justify;
+
+            updateAlignmentButtonsUI();
+            try { localStorage.setItem('carnatic_ribbon_justify', justify); } catch (e) { }
+        }
+
+        function setRibbonSize(size) {
+            if (!['small', 'medium', 'large'].includes(size)) size = 'medium';
+            ribbonSize = size;
+            const ribbon = document.getElementById('swaraRibbon');
+            if (ribbon) ribbon.dataset.size = size;
+
+            updateAlignmentButtonsUI();
+            try { localStorage.setItem('carnatic_ribbon_size', size); } catch (e) { }
+        }
+
+        function updateAlignmentButtonsUI() {
+            document.querySelectorAll('[data-layout-btn]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.layoutBtn === ribbonAlignment);
+            });
+            document.querySelectorAll('[data-align-btn]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.alignBtn === ribbonJustify);
+            });
+            document.querySelectorAll('[data-size-btn]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.sizeBtn === ribbonSize);
+            });
         }
 
         // Render each lesson line as its own labeled phrase in the notation ribbon.
         function renderTimelineRibbon() {
             const ribbon = document.getElementById('swaraRibbon');
-            ribbon.innerHTML = '';
-            ribbon.classList.toggle('split-lines', ribbonAlignment === 'split');
+            if (!ribbon) return;
 
             const lesson = allLessons[currentLessonKey];
             if (!lesson) return;
 
-            document.getElementById('ribbonLineTitle').textContent = lesson.title;
+            ribbon.classList.toggle('two-rows-layout', ribbonAlignment === 'two_rows');
+            ribbon.classList.toggle('split-lines', ribbonAlignment === 'split');
+            ribbon.classList.toggle('continuous-layout', ribbonAlignment === 'continuous');
+            ribbon.dataset.layout = ribbonAlignment;
+            ribbon.dataset.align = ribbonJustify;
+            ribbon.dataset.size = ribbonSize;
+
+            const titleEl = document.getElementById('ribbonLineTitle');
+            if (titleEl) titleEl.textContent = lesson.title;
+
             const karvaiHint = document.getElementById('karvaiHint');
             if (karvaiHint) karvaiHint.style.display = flatSequence.some(i => i.isRest) ? '' : 'none';
 
+            const fragment = document.createDocumentFragment();
+            let currentGroupId = -1;
             let currentLineIdx = -1;
             let currentMeasureIdx = -1;
             let lineMeasures = null;
             let measBlock = null;
 
             flatSequence.forEach((item, idx) => {
-                if (item.lineIdx !== currentLineIdx) {
-                    currentLineIdx = item.lineIdx;
+                const groupIdx = (ribbonAlignment === 'split')
+                    ? item.lineIdx
+                    : (ribbonAlignment === 'continuous' ? 0 : getTwoPartsPerRowGroup(item, lesson));
+
+                if (groupIdx !== currentGroupId) {
+                    currentGroupId = groupIdx;
+                    currentLineIdx = -1;
                     currentMeasureIdx = -1;
 
                     const lineGroup = document.createElement('div');
                     lineGroup.className = 'swara-line-group';
-                    lineGroup.dataset.lineIndex = currentLineIdx;
+                    lineGroup.dataset.lineIndex = currentGroupId;
 
                     const lineLabel = document.createElement('div');
                     lineLabel.className = 'swara-line-label';
-                    lineLabel.textContent = getCarnaticLineLabel(item.lineTitle, currentLineIdx);
+                    if (ribbonAlignment === 'two_rows') {
+                        lineLabel.textContent = getTwoPartsRowLabel(currentGroupId, lesson);
+                    } else if (ribbonAlignment === 'continuous') {
+                        lineLabel.textContent = '🎵 தொடர் இசை வரிசை (Continuous Flow)';
+                    } else {
+                        lineLabel.textContent = getCarnaticLineLabel(item.lineTitle, item.lineIdx);
+                    }
 
                     lineMeasures = document.createElement('div');
                     lineMeasures.className = 'swara-line-measures';
@@ -5405,11 +6285,23 @@
                     lineScroll.appendChild(lineMeasures);
                     lineGroup.appendChild(lineLabel);
                     lineGroup.appendChild(lineScroll);
-                    ribbon.appendChild(lineGroup);
+                    fragment.appendChild(lineGroup);
+                }
+
+                if (item.lineIdx !== currentLineIdx) {
+                    if (currentLineIdx >= 0 && lineMeasures) {
+                        const dDivider = document.createElement('div');
+                        dDivider.className = 'tala-divider tala-avartanam-divider';
+                        dDivider.textContent = '||';
+                        dDivider.title = 'ஆவர்த்தன முடிவு (End of Avartanam)';
+                        lineMeasures.appendChild(dDivider);
+                    }
+                    currentLineIdx = item.lineIdx;
+                    currentMeasureIdx = -1;
                 }
 
                 if (item.measIdx !== currentMeasureIdx) {
-                    if (currentMeasureIdx >= 0) {
+                    if (currentMeasureIdx >= 0 && lineMeasures) {
                         const divider = document.createElement('div');
                         divider.className = 'tala-divider';
                         divider.textContent = '|';
@@ -5418,7 +6310,7 @@
                     currentMeasureIdx = item.measIdx;
                     measBlock = document.createElement('div');
                     measBlock.className = 'swara-measure-block';
-                    lineMeasures.appendChild(measBlock);
+                    if (lineMeasures) lineMeasures.appendChild(measBlock);
                 }
 
                 const node = document.createElement('div');
@@ -5493,24 +6385,37 @@
                 node.appendChild(west);
                 node.appendChild(fingerBadge);
 
-                measBlock.appendChild(node);
+                if (measBlock) measBlock.appendChild(node);
             });
+
+            ribbon.innerHTML = '';
+            ribbon.appendChild(fragment);
+            lastActiveRibbonNode = null;
         }
 
-        function scrollActiveSwaraIntoView(activeNode) {
+        function scrollActiveSwaraIntoView(activeNode, smooth = false) {
             const ribbon = document.getElementById('swaraRibbon');
             if (!ribbon || !activeNode) return;
 
-            const scrollArea = ribbon.classList.contains('split-lines')
+            const isSplit = ribbon.classList.contains('split-lines');
+            const isSameRow = ribbon.classList.contains('same-row-layout');
+            const isTwoRows = ribbon.classList.contains('two-rows-layout');
+            const scrollArea = (isSplit || isSameRow || isTwoRows)
                 ? activeNode.closest('.swara-line-scroll')
                 : ribbon;
             if (!scrollArea) return;
+
+            // In two_rows, same_row, or desktop view when content already fits inside without overflow:
+            if (scrollArea.scrollWidth <= scrollArea.clientWidth + 4) {
+                if (scrollArea.scrollLeft !== 0) scrollArea.scrollLeft = 0;
+                return;
+            }
 
             const ribbonRect = scrollArea.getBoundingClientRect();
             const nodeRect = activeNode.getBoundingClientRect();
             const targetLeft = scrollArea.scrollLeft + nodeRect.left - ribbonRect.left - (scrollArea.clientWidth - nodeRect.width) / 2;
             const stepDurationMs = ((60 / currentBPM) / currentKaalam) * 1000;
-            if (stepDurationMs >= 300) {
+            if (smooth && stepDurationMs >= 350) {
                 scrollArea.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
             } else {
                 scrollArea.scrollLeft = Math.max(0, targetLeft);
@@ -5625,6 +6530,10 @@
             gestureSub.textContent = sub;
         }
 
+        let lastActiveRibbonNode = null;
+        let lastActiveKeyMidi = null;
+        let lastHoldKeyMidi = null;
+
         // Update Current Step Display & Audio
         function updateStepDisplay(playSound = true) {
             if (flatSequence.length === 0) return;
@@ -5633,6 +6542,7 @@
 
             const cur = flatSequence[currentStepIndex];
             const lesson = allLessons[currentLessonKey];
+            if (!lesson) return;
 
             const soundMidi = cur.isRest ? cur.holdMidi : cur.midi;
             // On a karvai (,) step show the held swara instead of dashes
@@ -5671,25 +6581,42 @@
             const isOnBeat = currentStepIndex % kaalamMultiplier === 0;
             updateTalaVisuals(lesson.tala, beatIndex);
 
-            document.querySelectorAll('.swara-node').forEach(n => n.classList.remove('active'));
+            // Fast O(1) active ribbon node highlight
+            if (lastActiveRibbonNode) {
+                lastActiveRibbonNode.classList.remove('active');
+            }
             const activeNode = document.getElementById(`ribbon_node_${currentStepIndex}`);
             if (activeNode) {
                 activeNode.classList.add('active');
-                scrollActiveSwaraIntoView(activeNode);
+                lastActiveRibbonNode = activeNode;
+                scrollActiveSwaraIntoView(activeNode, playSound);
             }
 
-            document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
-            document.querySelectorAll('.key-white[data-hold], .key-black[data-hold]').forEach(k => k.removeAttribute('data-hold'));
+            // Fast O(1) active piano key highlight
+            if (lastActiveKeyMidi !== null && lastActiveKeyMidi !== soundMidi) {
+                const prevKey = document.getElementById(`key_midi_${lastActiveKeyMidi}`);
+                if (prevKey) prevKey.classList.remove('active');
+            }
+            if (lastHoldKeyMidi !== null && lastHoldKeyMidi !== soundMidi) {
+                const prevHoldKey = document.getElementById(`key_midi_${lastHoldKeyMidi}`);
+                if (prevHoldKey) prevHoldKey.removeAttribute('data-hold');
+            }
             if (soundMidi !== null) {
                 highlightKeyVisual(soundMidi, true);
-                scrollKeyIntoViewIfNeeded(soundMidi);
+                lastActiveKeyMidi = soundMidi;
+                scrollKeyIntoViewIfNeeded(soundMidi, playSound);
                 const holdKey = document.getElementById(`key_midi_${soundMidi}`);
-                if (holdKey && cur.holdTotal) holdKey.dataset.hold = `${cur.holdPos}/${cur.holdTotal}`;
+                if (holdKey && cur.holdTotal) {
+                    holdKey.dataset.hold = `${cur.holdPos}/${cur.holdTotal}`;
+                    lastHoldKeyMidi = soundMidi;
+                }
+            } else {
+                lastActiveKeyMidi = null;
+                lastHoldKeyMidi = null;
             }
 
             if (playSound) {
                 initAudio();
-                const kaalamMultiplier = getKaalamMultiplier();
                 const stepDurationSec = (60 / currentBPM) / kaalamMultiplier;
                 // A swara followed by karvai rings for the full held length
                 if (!cur.isRest) {
@@ -5746,26 +6673,71 @@
 
         function startPlayback() {
             isPlaying = true;
-            document.getElementById('btnPlayPause').classList.add('playing');
-            document.getElementById('playIcon').textContent = '⏸️';
-            document.getElementById('playText').textContent = 'Pause';
+            const btn = document.getElementById('btnPlayPause');
+            if (btn) btn.classList.add('playing');
+            const icon = document.getElementById('playIcon');
+            if (icon) icon.textContent = '⏸️';
+            const txt = document.getElementById('playText');
+            if (txt) txt.textContent = 'Pause';
+
+            const lbBtn = document.getElementById('lightboxBtnPlay');
+            if (lbBtn) {
+                lbBtn.classList.add('playing');
+                lbBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626) !important';
+                lbBtn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.45) !important';
+            }
+            const lbIcon = document.getElementById('lightboxPlayIcon');
+            if (lbIcon) lbIcon.textContent = '⏸️';
+            const lbTxt = document.getElementById('lightboxPlayText');
+            if (lbTxt) lbTxt.textContent = 'Pause';
 
             scheduleNextStep();
         }
 
         function pausePlayback() {
             isPlaying = false;
-            if (playTimer) clearTimeout(playTimer);
-            document.getElementById('btnPlayPause').classList.remove('playing');
-            document.getElementById('playIcon').textContent = '▶️';
-            document.getElementById('playText').textContent = 'Play';
-            document.querySelectorAll('.key-white, .key-black').forEach(k => k.classList.remove('active'));
+            if (playTimer) {
+                clearTimeout(playTimer);
+                playTimer = null;
+            }
+            const btn = document.getElementById('btnPlayPause');
+            if (btn) btn.classList.remove('playing');
+            const icon = document.getElementById('playIcon');
+            if (icon) icon.textContent = '▶️';
+            const txt = document.getElementById('playText');
+            if (txt) txt.textContent = 'Play';
+
+            const lbBtn = document.getElementById('lightboxBtnPlay');
+            if (lbBtn) {
+                lbBtn.classList.remove('playing');
+                lbBtn.style.background = 'linear-gradient(135deg, #10b981, #059669) !important';
+                lbBtn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.45) !important';
+            }
+            const lbIcon = document.getElementById('lightboxPlayIcon');
+            if (lbIcon) lbIcon.textContent = '▶️';
+            const lbTxt = document.getElementById('lightboxPlayText');
+            if (lbTxt) lbTxt.textContent = 'Play';
+
+            if (lastActiveKeyMidi !== null) {
+                const prevKey = document.getElementById(`key_midi_${lastActiveKeyMidi}`);
+                if (prevKey) prevKey.classList.remove('active');
+                lastActiveKeyMidi = null;
+            }
+            if (lastHoldKeyMidi !== null) {
+                const prevHoldKey = document.getElementById(`key_midi_${lastHoldKeyMidi}`);
+                if (prevHoldKey) prevHoldKey.removeAttribute('data-hold');
+                lastHoldKeyMidi = null;
+            }
         }
 
         function stopPlayback() {
             pausePlayback();
             currentStepIndex = 0;
             updateStepDisplay(false);
+        }
+
+        function resetLesson() {
+            stopPlayback();
         }
 
         function scheduleNextStep() {
@@ -6277,13 +7249,11 @@
         // Load Lesson Directly into Studio
         function loadLessonIntoStudio(lessonKey) {
             onLessonSelect(lessonKey);
-            const sel = document.getElementById('lessonSelector');
-            if (sel) sel.value = lessonKey;
             switchView('studio');
             setTimeout(() => {
                 const ribbon = document.querySelector('.notation-ribbon-card');
                 if (ribbon) ribbon.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+            }, 100);
         }
 
         // ================= STHAYI / OCTAVE SHIFT FUNCTIONS =================
@@ -6927,6 +7897,166 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
             }
         }
 
+        // ================= LESSON STEPPER NAVIGATION =================
+        function getLessonKeysList() {
+            const cat = document.getElementById('catSelector')?.value || 'all';
+            const keys = [];
+            for (let k in allLessons) {
+                if (cat === 'all' || allLessons[k].cat === cat) {
+                    keys.push(k);
+                }
+            }
+            return keys;
+        }
+
+        function goToNextLesson() {
+            const wasPlaying = isPlaying;
+            const keys = getLessonKeysList();
+            if (keys.length === 0) return;
+            const curIdx = keys.indexOf(currentLessonKey);
+            const nextIdx = (curIdx + 1) < keys.length ? (curIdx + 1) : 0;
+            onLessonSelect(keys[nextIdx]);
+            if (wasPlaying) {
+                setTimeout(startPlayback, 60);
+            }
+        }
+
+        function goToPrevLesson() {
+            const wasPlaying = isPlaying;
+            const keys = getLessonKeysList();
+            if (keys.length === 0) return;
+            const curIdx = keys.indexOf(currentLessonKey);
+            const prevIdx = (curIdx - 1) >= 0 ? (curIdx - 1) : (keys.length - 1);
+            onLessonSelect(keys[prevIdx]);
+            if (wasPlaying) {
+                setTimeout(startPlayback, 60);
+            }
+        }
+
+        // ================= FULLSCREEN LIGHTBOX SUITE =================
+        function openKeyboardLightbox() {
+            const modal = document.getElementById('keyboardLightbox');
+            const content = document.getElementById('keyboardLightboxContent');
+            const chassis = document.getElementById('keyboardChassis');
+            if (!modal || !content || !chassis) return;
+
+            content.appendChild(chassis);
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            setTimeout(() => centerMiddleC(false), 80);
+        }
+
+        function closeKeyboardLightbox(e) {
+            if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('modal-close-btn') && !e.target.classList.contains('keyboard-lightbox-close')) return;
+            const modal = document.getElementById('keyboardLightbox');
+            const card = document.querySelector('.keyboard-dock-card');
+            const chassis = document.getElementById('keyboardChassis');
+            if (card && chassis) {
+                card.appendChild(chassis);
+            }
+            if (modal) {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+            setTimeout(() => centerMiddleC(false), 80);
+        }
+
+        function openNotationLightbox() {
+            const modal = document.getElementById('notationLightbox');
+            const content = document.getElementById('notationLightboxContent');
+            const ribbon = document.getElementById('swaraRibbon');
+            const footer = document.getElementById('notationLightboxFooter');
+            const playbackStrip = document.querySelector('.playback-strip');
+            if (!modal || !content || !ribbon) return;
+
+            content.appendChild(ribbon);
+            if (footer && playbackStrip) {
+                footer.appendChild(playbackStrip);
+            }
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+
+            // Sync lightbox Play button state
+            const lbBtn = document.getElementById('lightboxBtnPlay');
+            const lbIcon = document.getElementById('lightboxPlayIcon');
+            const lbTxt = document.getElementById('lightboxPlayText');
+            if (lbBtn) {
+                lbBtn.classList.toggle('playing', isPlaying);
+                lbBtn.style.background = isPlaying ? 'linear-gradient(135deg, #ef4444, #dc2626) !important' : 'linear-gradient(135deg, #10b981, #059669) !important';
+            }
+            if (lbIcon) lbIcon.textContent = isPlaying ? '⏸️' : '▶️';
+            if (lbTxt) lbTxt.textContent = isPlaying ? 'Pause' : 'Play';
+
+            // Set lesson badge
+            const lessonBadge = document.getElementById('notationLightboxLessonBadge');
+            const lesson = allLessons[currentLessonKey];
+            if (lessonBadge && lesson) {
+                lessonBadge.textContent = `${lesson.id || ''}: ${lesson.title || ''}`;
+            }
+
+            // Sync layout dropdown
+            const layoutSelect = document.getElementById('notationLightboxLayout');
+            if (layoutSelect) layoutSelect.value = ribbonAlignment;
+
+            // Sync align & size button states
+            updateAlignmentButtonsUI();
+
+            resetRibbonScroll();
+
+            const closeBtn = modal.querySelector('.notation-lightbox-close');
+            if (closeBtn) closeBtn.focus();
+        }
+
+        function closeNotationLightbox(e) {
+            if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('modal-close-btn') && !e.target.classList.contains('notation-lightbox-close')) return;
+            const modal = document.getElementById('notationLightbox');
+            const ribbonCard = document.querySelector('#notationRibbonHome .notation-ribbon-card');
+            const ribbon = document.getElementById('swaraRibbon');
+            const anchor = document.getElementById('playbackStripAnchor');
+            const playbackStrip = document.querySelector('.playback-strip');
+
+            if (ribbonCard && ribbon) {
+                ribbonCard.appendChild(ribbon);
+            }
+            if (anchor && playbackStrip) {
+                anchor.after(playbackStrip);
+            }
+            if (modal) {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+            const openBtn = document.getElementById('btnOpenNotationLightbox');
+            if (openBtn) openBtn.focus();
+        }
+
+        function openImageLightbox(src, title, desc) {
+            const modal = document.getElementById('imageLightbox');
+            const img = document.getElementById('imageLightboxImg');
+            const titleEl = document.getElementById('imageLightboxTitle');
+            const descEl = document.getElementById('imageLightboxDesc');
+            const dlLink = document.getElementById('imageLightboxDownload');
+            if (!modal || !img) return;
+
+            img.src = src;
+            if (titleEl) titleEl.textContent = title || 'வரைபடம் — முழுத்திரை';
+            if (descEl) descEl.textContent = desc || 'முழுத் தெளிவுடன் கூடிய வரைபடம் (HD Vector SVG)';
+            if (dlLink) {
+                dlLink.href = src;
+                dlLink.download = src.split('/').pop() || 'diagram.svg';
+            }
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeImageLightbox(e) {
+            if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('modal-close-btn')) return;
+            const modal = document.getElementById('imageLightbox');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+        }
+
         // Computer Keyboard Hotkeys for Playing Notes (3 Full Octaves)
         const keyMap = {
             // Mandra Sthayi (C3 - B3) Lower Octave
@@ -6941,6 +8071,10 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                if (document.getElementById('imageLightbox') && document.getElementById('imageLightbox').classList.contains('active')) {
+                    closeImageLightbox();
+                    return;
+                }
                 if (document.getElementById('keyboardLightbox') && document.getElementById('keyboardLightbox').classList.contains('active')) {
                     closeKeyboardLightbox();
                     return;
@@ -6960,6 +8094,18 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
             }
 
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+
+            // Lesson Navigation Shortcuts: PageDown / Shift+ArrowRight for Next Lesson, PageUp / Shift+ArrowLeft for Prev Lesson
+            if (e.key === 'PageDown' || (e.shiftKey && e.key === 'ArrowRight')) {
+                e.preventDefault();
+                goToNextLesson();
+                return;
+            }
+            if (e.key === 'PageUp' || (e.shiftKey && e.key === 'ArrowLeft')) {
+                e.preventDefault();
+                goToPrevLesson();
+                return;
+            }
 
             // Help Dialog Shortcut: ?
             if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
@@ -7052,28 +8198,62 @@ ${lesson.desc || 'கர்நாடக இசை பாரம்பரியத
             const basePath = isSubDir ? '../../diagrams/keyboard/' : 'diagrams/keyboard/';
 
             const diags = [
-                { imgId: 'diagImg1', linkId: 'diagLink1', file: '01_carnatic_keyboard_16_swarasthanas_guide.svg' },
-                { imgId: 'diagImg2', linkId: 'diagLink2', file: '02_carnatic_keyboard_5_sthayis_map.svg' },
-                { imgId: 'diagImg3', linkId: 'diagLink3', file: '03_sarali_varisai_mayamalavagowla_keyboard_map.svg' },
-                { imgId: 'diagImg4', linkId: 'diagLink4', file: '04_yamaha_psr_carnatic_setup_guide.svg' }
+                { imgId: 'diagImg1', linkId: 'diagLink1', file: '01_carnatic_keyboard_16_swarasthanas_guide.svg', title: '1. கர்நாடக 16 ஸ்வரஸ்தான விசைப்பலகை வரைபடம்', desc: '1 கட்டை சுருதி (C4 Shadjam) அடிப்படையில் அனைத்து 16 ஸ்வரங்கள் மற்றும் மேற்கத்திய குறிப்புகள்.' },
+                { imgId: 'diagImg2', linkId: 'diagLink2', file: '02_carnatic_keyboard_5_sthayis_map.svg', title: '2. பஞ்ச ஸ்தாயி விசைப்பலகை மண்டல வரைபடம்', desc: 'அதி மந்திரம் (C2) முதல் அதி தாரம் (C7) வரையிலான 5 ஸ்தாயிகள், சக்கரங்கள் மற்றும் அதிர்வெண்கள்.' },
+                { imgId: 'diagImg3', linkId: 'diagLink3', file: '03_sarali_varisai_mayamalavagowla_keyboard_map.svg', title: '3. மாயாமாளவகௌளை & சரளி வரிசை விரல் வைப்பு முறை', desc: 'வலது கை 1-2-3 Thumb-under நுட்பம் மற்றும் சரளி வரிசைகளுக்கான சரியான விரல் அமைப்பு.' },
+                { imgId: 'diagImg4', linkId: 'diagLink4', file: '04_yamaha_psr_carnatic_setup_guide.svg', title: '4. யமஹா PSR கர்நாடக இசை அமைப்பு வழிகாட்டி', desc: 'Pitch Bend Wheel (±2 Semitones), Transpose (கட்டை சுருதி), Dual Voice & Touch Response அமைப்புகள்.' }
             ];
 
             diags.forEach(d => {
                 const img = document.getElementById(d.imgId);
                 const link = document.getElementById(d.linkId);
                 const fullUrl = basePath + d.file;
-                if (img) img.src = fullUrl;
-                if (link) link.href = fullUrl;
+                if (img) {
+                    img.src = fullUrl;
+                    img.style.cursor = 'zoom-in';
+                    img.title = 'பெரிதாக்க சொடுக்கவும் (Click to Zoom)';
+                    img.onclick = () => openImageLightbox(fullUrl, d.title, d.desc);
+                }
+                if (link) {
+                    link.removeAttribute('target');
+                    link.href = 'javascript:void(0)';
+                    link.title = 'முழுத்திரையில் திறக்க';
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        openImageLightbox(fullUrl, d.title, d.desc);
+                    };
+                }
             });
         }
 
         // App Initialization
         window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const savedAlign = localStorage.getItem('carnatic_ribbon_alignment') || 'two_rows';
+                ribbonAlignment = ['two_rows', 'split', 'continuous'].includes(savedAlign) ? savedAlign : 'two_rows';
+                const savedJustify = localStorage.getItem('carnatic_ribbon_justify') || 'spread';
+                ribbonJustify = savedJustify;
+                const savedSize = localStorage.getItem('carnatic_ribbon_size') || 'medium';
+                ribbonSize = savedSize;
+            } catch (e) {
+                ribbonAlignment = 'two_rows';
+                ribbonJustify = 'spread';
+                ribbonSize = 'medium';
+            }
+            updateAlignmentButtonsUI();
             populateLessonDropdown(document.getElementById('catSelector').value);
             render61KeyPiano();
             buildFlatSequence();
             renderTimelineRibbon();
             updateStepDisplay(false);
+            const banner = document.getElementById('lessonLoadedBanner');
+            const lesson = allLessons[currentLessonKey];
+            if (banner && lesson) {
+                const titleEl = document.getElementById('bannerLessonTitle');
+                const detailsEl = document.getElementById('bannerLessonDetails');
+                if (titleEl) titleEl.textContent = lesson.title;
+                if (detailsEl) detailsEl.textContent = `${lesson.raga} • ${lesson.tala} • ${flatSequence.length} ஸ்வரங்கள்`;
+            }
             renderMelakartaExplorer();
             renderJanyaRagas();
             renderSwarasTable();
